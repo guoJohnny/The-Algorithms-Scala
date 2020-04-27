@@ -37,19 +37,13 @@ object BinaryTree {
     /**
      * Recrusive serialize a binary tree from a root tree node
      * @param root  - a root Treenode
-     * @param serial    - serialized string of tree
      * @return - serialized string of tree
      */
-    def serialize(root: TreeNode, serial: String): String = {
-        var tmp = serial
+    def serialize(root: TreeNode): String = {
         if (root == null) {
-            tmp = tmp + "null,"
-        } else {
-            tmp = tmp + root.value.toString.concat(",")
-            tmp = serialize(root.left, tmp)
-            tmp = serialize(root.right, tmp)
-        }
-        return tmp
+            return "null"
+        } 
+        return root.value.toString + "," + serialize(root.left) + "," + serialize(root.right)
     }
 
 }
