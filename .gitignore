@@ -9,7 +9,7 @@ ENV/
 .ropeproject
 .idea
 .DS_Store
-
+.vscode
 
 # sbt specific
 target/
