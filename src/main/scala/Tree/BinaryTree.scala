@@ -1,5 +1,8 @@
 package Tree
 
+import scala.collection.mutable.Queue
+import scala.collection.mutable.ArrayBuffer
+
 /**
   * The Algorithms of Binary Tree 
   * 
@@ -35,15 +38,41 @@ object BinaryTree {
     }
     
     /**
-     * Recrusive serialize a binary tree from a root tree node
+     * Preorder recrusive serialize a binary tree from a root tree node
      * @param root  - a root Treenode
      * @return - serialized string of tree
      */
-    def serialize(root: TreeNode): String = {
+    def rcserialize(root: TreeNode): String = {
         if (root == null) {
             return "null"
         } 
-        return root.value.toString + "," + serialize(root.left) + "," + serialize(root.right)
+        return root.value.toString + "," + rcserialize(root.left) + "," + rcserialize(root.right)
+    }
+
+    /**
+      * Description：Level order traversal serialize
+      * preorder as Array(1,2,3,4,5) and inorder as Array(2,1,4,3,5)
+      * from preorder and inorder build a binary tree,serialize this tree
+      * return [1,2,3,null,null,4,5]
+      * @param root - a root Treenode
+      * @return - serialized string of tree
+      */
+    def serialize(root: TreeNode): String = {
+        val queue = new Queue[TreeNode]
+        val str = ArrayBuffer.empty[String]
+        queue.enqueue(root)
+        while (!queue.isEmpty){
+            val curNode = queue.dequeue
+            if (curNode != null){                
+                str += curNode.value.toString
+                queue.enqueue(curNode.left)
+                queue.enqueue(curNode.right)
+            } else {
+                str += null
+            }
+        }
+        // remove tail "null" nodes
+        str.reverse.dropWhile( {x:String => x == null} ).reverse.mkString("[", ",", "]")
     }
 
 }
