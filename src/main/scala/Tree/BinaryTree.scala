@@ -9,35 +9,55 @@ import scala.collection.mutable.ArrayBuffer
   */
 object BinaryTree {
 
-    def buildTree(preorder: Array[Int], inorder: Array[Int]): TreeNode = {
-        preorderInorderHelper(preorder,inorder)
-    }
-
     /**
-     * 
+     * Leetcode 105
      * Description：Given preorder and inorder traversal of a tree, construct the binary tree
      * You may assume that duplicates do not exist in the tree.
      * For example, given
      * preorder = [3,9,20,15,7]
      * inorder = [9,3,15,20,7]
-     * return [3,9,20,null,null,15,7]
+     * return [3,9,20,null,null,15,7] serialized string of tree
      * @param preorder   - a array of preorder traverse
      * @param inorder   - a array of inorder traverse
      * @return - root TreeNode
      */
-    def preorderInorderHelper(preorder: Array[Int], inorder: Array[Int]): TreeNode = {
-        if (preorder.length == 0 || inorder.length == 0) return null
-        var root = new TreeNode(preorder(0))
-        if (preorder.length == 1) return root
-        val  leftSubTreeNodeNums = inorder.indexOf(root.value)
-        root.left=preorderInorderHelper(preorder.slice(1, leftSubTreeNodeNums + 1),
+    def buildFromPreIn(preorder: Array[Int], inorder: Array[Int]): TreeNode = {
+        if (inorder.isEmpty) null
+        else {
+            var root = new TreeNode(preorder(0))
+            val  leftSubTreeNodeNums = inorder.indexOf(root.value)
+            root.left = buildFromPreIn(preorder.slice(1, leftSubTreeNodeNums + 1),
                 inorder.slice(0, leftSubTreeNodeNums)) 
-        root.right=preorderInorderHelper(preorder.slice(leftSubTreeNodeNums+1,preorder.length),
+            root.right = buildFromPreIn(preorder.slice(leftSubTreeNodeNums+1,preorder.length),
                 inorder.slice(leftSubTreeNodeNums+1,inorder.length))          
-        root
+            root
+        }       
     }
-    
+    /** 
+      * Leetcode 106
+      * Discription: Given inorder and postorder traversal of a tree, construct the binary tree.
+      * inorder = [9,3,15,20,7]
+      * postorder = [9,15,7,20,3]
+      * return [3,9,20,null,null,15,7] level serialized string of tree
+      * @param inorder      - a array of inorder traverse
+      * @param postorder    - a array of postorder traverse
+      * @return root Treenode
+      */
+    def buildFromInPost(inorder: Array[Int], postorder: Array[Int]): TreeNode = {
+        if (inorder.isEmpty) null
+        else {
+            val root = new TreeNode(postorder.last)
+            val rightSubTreeNodeNums = inorder.indexOf(root.value)
+            root.right = buildFromInPost(inorder.slice(rightSubTreeNodeNums+1, inorder.length),
+                postorder.slice(rightSubTreeNodeNums, postorder.length - 1))
+            root.left = buildFromInPost(inorder.slice(0, rightSubTreeNodeNums), 
+                postorder.slice(0, rightSubTreeNodeNums))       
+            root
+        }   
+    }
+
     /**
+     * 
      * Preorder recrusive serialize a binary tree from a root tree node
      * @param root  - a root Treenode
      * @return - serialized string of tree
@@ -49,7 +69,8 @@ object BinaryTree {
         return root.value.toString + "," + rcserialize(root.left) + "," + rcserialize(root.right)
     }
 
-    /**
+    /** 
+      * Leetcode 297
       * Description：Level order traversal serialize
       * preorder as Array(1,2,3,4,5) and inorder as Array(2,1,4,3,5)
       * from preorder and inorder build a binary tree,serialize this tree
