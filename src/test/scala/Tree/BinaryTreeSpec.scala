@@ -38,4 +38,15 @@ class BinaryTreeSpec extends FlatSpec{
         )
     assert(BinaryTree.levelOrder(BinaryTree.buildFromInPost(inOrder,postOrder)) === tree)
   }
+
+  "BinaryTree recursive max depth" should "return a Int passed to it" in {
+    val preOrder = Array(3,9,20,15,7)
+    val inOrder = Array(9,3,15,20,7)
+    assert(BinaryTree.rcmaxDepth(BinaryTree.buildFromPreIn(preOrder,inOrder)) === 3)
+  }
+  "BinaryTree max depth" should "return a Int passed to it" in {
+    val preOrder = Array(3,9,20,15,7)
+    val inOrder = Array(9,3,15,20,7)
+    assert(BinaryTree.rcmaxDepth(BinaryTree.buildFromPreIn(preOrder,inOrder)) === 3)
+  }
 }

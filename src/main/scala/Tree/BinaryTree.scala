@@ -57,7 +57,8 @@ object BinaryTree {
         }   
     }
 
-    /**
+    /** 
+      * Leetcode 102
       * Discription:Given a binary tree, return the level order traversal of its nodes' values.
       * (ie, from left to right, level by level).
       * return its level order traversal
@@ -82,6 +83,70 @@ object BinaryTree {
             }
         }        
         list.toList
+    }
+    /** 
+      * Leetcode 107
+      * Discription:Given a binary tree, return the bottom-up level order traversal of its nodes' values. 
+      * (ie, from left to right, level by level from leaf to root).
+      * return its level order bottom up traversal
+      * @param root     - root treenode 
+      * @return         - traversal of its nodes' values.
+      */
+    def levelOrderBottom(root: TreeNode): List[List[Int]] = {
+        val list = new ListBuffer[List[Int]]()
+        if (root == null) {
+            list.toList 
+        } else {
+            val queue = new Queue[TreeNode]
+            queue.enqueue(root)
+            while (queue.nonEmpty) {
+                val rowList = (1 to queue.size).foldLeft(List[Int]()) { (str, _) =>
+                    val temp = queue.dequeue
+                    if (temp.left != null) queue.enqueue(temp.left)
+                    if (temp.right != null) queue.enqueue(temp.right)
+                    str :+ temp.value
+                }
+                list.append(rowList)
+            }
+        }        
+        list.toList.reverse
+    }
+    /** 
+      * Leetcode 104
+      * Discription:Given a binary tree, find its maximum depth. 
+      * The maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node.
+      * return maximum depth
+      * using recrusive
+      * @param root     - root treenode 
+      * @return         - Int
+      */
+    def rcmaxDepth(root: TreeNode): Int = {
+        if (root == null) return 0
+        math.max(rcmaxDepth(root.left), rcmaxDepth(root.right)) + 1 
+    }
+
+    /** 
+      * Leetcode 104
+      * Discription:Given a binary tree, find its maximum depth. 
+      * The maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node.
+      * return maximum depth
+      * @param root     - root treenode 
+      * @return         - Int
+      */
+    def maxDepth(root: TreeNode): Int = {
+        if (root == null) return 0
+        val queue = new Queue[TreeNode]
+        var depth = 0
+        queue.enqueue(root)
+        while (queue.nonEmpty){
+            depth += 1
+            (1 to queue.size).foreach(x=>{
+                val curNode = queue.dequeue
+                if (curNode.left != null) queue.enqueue(curNode.left)
+                if (curNode.right != null) queue.enqueue(curNode.right) 
+            })
+        }
+        depth
     }
 
     /**
