@@ -26,4 +26,16 @@ class BinaryTreeSpec extends FlatSpec{
     val postOrder = Array(9,15,7,20,3)
     assert(BinaryTree.serialize(BinaryTree.buildFromInPost(inOrder,postOrder)) === "[3,9,20,null,null,15,7]")
   }
+
+  "BinaryTree level traversal" should "return a List" in {  
+    val inOrder = Array(9,3,15,20,7)
+    val postOrder = Array(9,15,7,20,3)
+    val tree: List[List[Int]] =
+        List(
+            List(3),
+            List(9,20),
+            List(15,7)
+        )
+    assert(BinaryTree.levelOrder(BinaryTree.buildFromInPost(inOrder,postOrder)) === tree)
+  }
 }

@@ -2,6 +2,7 @@ package Tree
 
 import scala.collection.mutable.Queue
 import scala.collection.mutable.ArrayBuffer
+import scala.collection.mutable.ListBuffer
 
 /**
   * The Algorithms of Binary Tree 
@@ -24,7 +25,7 @@ object BinaryTree {
     def buildFromPreIn(preorder: Array[Int], inorder: Array[Int]): TreeNode = {
         if (inorder.isEmpty) null
         else {
-            var root = new TreeNode(preorder(0))
+            val root = new TreeNode(preorder(0))
             val  leftSubTreeNodeNums = inorder.indexOf(root.value)
             root.left = buildFromPreIn(preorder.slice(1, leftSubTreeNodeNums + 1),
                 inorder.slice(0, leftSubTreeNodeNums)) 
@@ -54,6 +55,33 @@ object BinaryTree {
                 postorder.slice(0, rightSubTreeNodeNums))       
             root
         }   
+    }
+
+    /**
+      * Discription:Given a binary tree, return the level order traversal of its nodes' values.
+      * (ie, from left to right, level by level).
+      * return its level order traversal
+      * @param root     - root treenode 
+      * @return         - traversal of its nodes' values.
+      */
+    def levelOrder(root: TreeNode): List[List[Int]] = {
+        val list = new ListBuffer[List[Int]]()
+        if (root == null) {
+            list.toList 
+        } else {
+            val queue = new Queue[TreeNode]
+            queue.enqueue(root)
+            while (queue.nonEmpty) {
+                val rowList = (1 to queue.size).foldLeft(List[Int]()) { (str, _) =>
+                    val temp = queue.dequeue
+                    if (temp.left != null) queue.enqueue(temp.left)
+                    if (temp.right != null) queue.enqueue(temp.right)
+                    str :+ temp.value
+                }
+                list.append(rowList)
+            }
+        }        
+        list.toList
     }
 
     /**
