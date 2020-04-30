@@ -4,6 +4,7 @@ import scala.collection.mutable.Queue
 import scala.collection.mutable.ArrayBuffer
 import scala.collection.mutable.ListBuffer
 import scala.util.control.Breaks.{break, breakable}
+import scala.collection.mutable.Stack
 /**
   * The Algorithms of Binary Tree 
   * 
@@ -127,6 +128,38 @@ object BinaryTree {
         }        
         list.toList
     }
+
+    /**
+      * Leetcode 103
+      * Given a binary tree, return the zigzag level order traversal of its nodes' values. 
+      * (ie, from left to right, then right to left for the next level and alternate between).
+      * Given binary tree [3,9,20,null,null,15,7]
+      * return [[3],[20,9],[15,7]]
+      * @param root     - root Treenode
+      * @return         - zigzag level order
+      */
+    def zigzagLevelOrder(root: TreeNode): List[List[Int]] = {
+        val list = new ListBuffer[List[Int]]()
+        if (root == null) {
+            list.toList 
+        } else {
+            var flag = false
+            val queue = new Queue[TreeNode]
+            queue.enqueue(root)
+            while (queue.nonEmpty) {
+                val rowList = (1 to queue.size).foldLeft(List[Int]()) { (str, _) =>
+                    val temp = queue.dequeue
+                    if (temp.left != null) queue.enqueue(temp.left)
+                    if (temp.right != null) queue.enqueue(temp.right)
+                    str :+ temp.value
+                }
+                if (flag) list.append(rowList.reverse) else list.append(rowList)
+                flag = !flag
+            }
+        }
+        list.toList       
+    }
+
     /** 
       * Leetcode 107
       * Discription:Given a binary tree, return the bottom-up level order traversal of its nodes' values. 
@@ -154,6 +187,50 @@ object BinaryTree {
         }        
         list.toList.reverse
     }
+    /**
+      * Leetcode 94
+      * Given a binary tree, return the inorder traversal of its nodes' values.
+      * recrusively solution
+      * @param root
+      * @return
+      */
+    def rcInorderTraversal(root: TreeNode): List[Int] = {
+        val list = ListBuffer[Int]()
+        def inorder(root:TreeNode,list: ListBuffer[Int]): Unit={
+            if (root != null){
+                if (root.left != null) inorder(root.left, list)
+                list.append(root.value)
+                if (root.right != null) inorder(root.right, list)
+            }  
+        } 
+        inorder(root, list)
+        list.toList
+    }
+
+    /**
+      * Leetcode 94
+      * Given a binary tree, return the inorder traversal of its nodes' values.
+      * iteratively solution
+      * @param root
+      * @return
+      */
+    def inorderTraversal(root: TreeNode): List[Int] = {
+        var stack = List[TreeNode]()
+        val list = ListBuffer[Int]()
+        var curNode = root
+        while (curNode != null || stack.nonEmpty){
+            while (curNode != null) {
+                stack = curNode :: stack
+                curNode = curNode.left
+            }
+            curNode = stack.head
+            stack = stack.tail
+            list.append(curNode.value)
+            curNode = curNode.right
+        }
+        list.toList
+    }
+
     /** 
       * Leetcode 104
       * Discription:Given a binary tree, find its maximum depth. 
@@ -193,7 +270,7 @@ object BinaryTree {
     }
 
     /**
-     * 
+     * Leetcode 297
      * Preorder recrusive serialize a binary tree from a root tree node
      * @param root  - a root Treenode
      * @return - serialized string of tree
@@ -231,5 +308,20 @@ object BinaryTree {
         // remove tail "null" nodes
         str.reverse.dropWhile( {x:String => x == null} ).reverse.mkString("[", ",", "]")
     }
-
+    /**
+      * Leetcode 110
+      * Given a binary tree, determine if it is height-balanced.
+      * @param root - root Treenode
+      * @return boolean 
+      */
+    def isBalanced(root: TreeNode): Boolean = {
+        def helper(root: TreeNode): Int = {
+            if (root == null) return 0
+            val left = helper(root.left)
+            val right = helper(root.right)
+            if (left == -1 || right == -1 || math.abs(left - right)>1) return -1
+            return math.max(left,right) + 1
+        }
+        return helper(root) >= 0
+    }
 }

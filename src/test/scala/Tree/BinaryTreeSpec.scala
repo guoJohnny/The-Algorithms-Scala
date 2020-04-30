@@ -8,11 +8,11 @@ class BinaryTreeSpec extends FlatSpec{
   val postOrder = Array(9,15,7,20,3)
   val root = BinaryTree.buildFromPreIn(preOrder,inOrder)
 
-    "BinaryTree rcSerialize" should "return a serialized String passed to it" in {
+  "BinaryTree rcSerialize" should "return a serialized String passed to it" in {
     assert(BinaryTree.rcserialize(root) === "3,9,null,null,20,15,null,null,7,null,null")
   }
 
-   "BinaryTree level serialize" should "return a serialized String passed to it" in {
+  "BinaryTree level serialize" should "return a serialized String passed to it" in {
     val preOrder = Array(1,2,3,4,5)
     val inOrder = Array(2,1,4,3,5)
     assert(BinaryTree.serialize(BinaryTree.buildFromPreIn(preOrder,inOrder)) === "[1,2,3,null,null,4,5]")
@@ -54,4 +54,33 @@ class BinaryTreeSpec extends FlatSpec{
     val inOrder = Array[Int](2,1,2)
     assert(BinaryTree.isSymmetric(BinaryTree.buildFromPreIn(preOrder,inOrder)) === true)
   }
+
+  "zigzag level order" should "return a List" in {  
+    val tree: List[List[Int]] =
+        List(
+            List(3),
+            List(20,9),
+            List(15,7)
+        )
+    assert(BinaryTree.zigzagLevelOrder(root) === tree)
+  }
+
+  "BinaryTree rcInorder" should "return a List passed to it" in {
+    val list = List[Int](1,3,2)
+    val preOrder = Array(1,2,3)
+    val inOrder = Array(1,3,2)
+    assert(BinaryTree.rcInorderTraversal(BinaryTree.buildFromPreIn(preOrder,inOrder)) === list)
+  }
+
+  "BinaryTree Inorder" should "return a List passed to it" in {
+    val list = List[Int](1,3,2)
+    val preOrder = Array(1,2,3)
+    val inOrder = Array(1,3,2)
+    assert(BinaryTree.inorderTraversal(BinaryTree.buildFromPreIn(preOrder,inOrder)) === list)
+  }
+
+  "BinaryTree isBalanced" should "return a Boolean passed to it" in {
+    assert(BinaryTree.isBalanced(BinaryTree.buildFromPreIn(preOrder,inOrder)) === true)
+  }
+
 }
