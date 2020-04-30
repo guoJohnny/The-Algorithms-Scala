@@ -3,7 +3,7 @@ package Tree
 import scala.collection.mutable.Queue
 import scala.collection.mutable.ArrayBuffer
 import scala.collection.mutable.ListBuffer
-
+import scala.util.control.Breaks.{break, breakable}
 /**
   * The Algorithms of Binary Tree 
   * 
@@ -55,6 +55,49 @@ object BinaryTree {
                 postorder.slice(0, rightSubTreeNodeNums))       
             root
         }   
+    }
+    
+    /**
+      * Leetcode 101
+      * Given a binary tree, check whether it is a mirror of itself (ie, symmetric around its center).
+      * recursively solution
+      * @param root
+      * @return
+      */
+    def rcSymmetric(root: TreeNode): Boolean = {
+        if (root == null) return true
+        def isMirror(t1: TreeNode,t2: TreeNode): Boolean = {
+            if (t1 == null && t2 == null) return true
+            if (t1 == null || t2 == null) return false
+            (t1.value == t2.value) && isMirror(t1.right, t2.left) && isMirror(t1.left, t2.right)
+        }
+        isMirror(root.left,root.right)
+    }
+    /**
+      * Leetcode 101
+      * Given a binary tree, check whether it is a mirror of itself (ie, symmetric around its center).
+      * iteratively solution
+      * @param root
+      * @return
+      */
+    def isSymmetric(root: TreeNode): Boolean = {
+        val queue = new Queue[TreeNode]()
+        queue.enqueue(root)
+        queue.enqueue(root)
+        while (queue.nonEmpty) {
+            val t1 = queue.dequeue
+            val t2 = queue.dequeue
+            if (t1 == null && t2 == null) { Unit }
+            else {
+                if (t1 == null || t2 == null) return false
+                if (t1.value != t2.value) return false
+                queue.enqueue(t1.left)
+                queue.enqueue(t2.right)
+                queue.enqueue(t1.right)
+                queue.enqueue(t2.left)
+            }          
+        }
+        true
     }
 
     /** 

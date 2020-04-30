@@ -2,11 +2,14 @@ package Tree
 import org.scalatest.FlatSpec
 
 class BinaryTreeSpec extends FlatSpec{
-  
+
+  val preOrder = Array(3,9,20,15,7)
+  val inOrder = Array(9,3,15,20,7)
+  val postOrder = Array(9,15,7,20,3)
+  val root = BinaryTree.buildFromPreIn(preOrder,inOrder)
+
     "BinaryTree rcSerialize" should "return a serialized String passed to it" in {
-    val preOrder = Array(3,9,20,15,7)
-    val inOrder = Array(9,3,15,20,7)
-    assert(BinaryTree.rcserialize(BinaryTree.buildFromPreIn(preOrder,inOrder)) === "3,9,null,null,20,15,null,null,7,null,null")
+    assert(BinaryTree.rcserialize(root) === "3,9,null,null,20,15,null,null,7,null,null")
   }
 
    "BinaryTree level serialize" should "return a serialized String passed to it" in {
@@ -16,37 +19,39 @@ class BinaryTreeSpec extends FlatSpec{
   }
 
   "BinaryTree inorder prester build tree" should "return a String" in {  
-    val inOrder = Array(9,3,15,20,7)
-    val preOrder = Array(3,9,20,15,7)
-    assert(BinaryTree.serialize(BinaryTree.buildFromPreIn(preOrder,inOrder)) === "[3,9,20,null,null,15,7]")
+    assert(BinaryTree.serialize(root) === "[3,9,20,null,null,15,7]")
   }
 
   "BinaryTree inorder poster build tree" should "return a String" in {  
-    val inOrder = Array(9,3,15,20,7)
-    val postOrder = Array(9,15,7,20,3)
     assert(BinaryTree.serialize(BinaryTree.buildFromInPost(inOrder,postOrder)) === "[3,9,20,null,null,15,7]")
   }
 
   "BinaryTree level traversal" should "return a List" in {  
-    val inOrder = Array(9,3,15,20,7)
-    val postOrder = Array(9,15,7,20,3)
     val tree: List[List[Int]] =
         List(
             List(3),
             List(9,20),
             List(15,7)
         )
-    assert(BinaryTree.levelOrder(BinaryTree.buildFromInPost(inOrder,postOrder)) === tree)
+    assert(BinaryTree.levelOrder(root) === tree)
   }
 
   "BinaryTree recursive max depth" should "return a Int passed to it" in {
-    val preOrder = Array(3,9,20,15,7)
-    val inOrder = Array(9,3,15,20,7)
-    assert(BinaryTree.rcmaxDepth(BinaryTree.buildFromPreIn(preOrder,inOrder)) === 3)
+    assert(BinaryTree.rcmaxDepth(root) === 3)
   }
   "BinaryTree max depth" should "return a Int passed to it" in {
-    val preOrder = Array(3,9,20,15,7)
-    val inOrder = Array(9,3,15,20,7)
-    assert(BinaryTree.rcmaxDepth(BinaryTree.buildFromPreIn(preOrder,inOrder)) === 3)
+    assert(BinaryTree.rcmaxDepth(root) === 3)
+  }
+
+  "Recrusively Symmetric Tree" should "return a boolean passed to it" in {
+    val preOrder = Array[Int](1,2,2)
+    val inOrder = Array[Int](2,1,2)
+    assert(BinaryTree.rcSymmetric(BinaryTree.buildFromPreIn(preOrder,inOrder)) === true)
+  }
+
+  "Iteratively Symmetric Tree" should "return a boolean passed to it" in {
+    val preOrder = Array[Int](1,2,2)
+    val inOrder = Array[Int](2,1,2)
+    assert(BinaryTree.isSymmetric(BinaryTree.buildFromPreIn(preOrder,inOrder)) === true)
   }
 }
