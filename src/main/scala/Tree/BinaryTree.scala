@@ -268,6 +268,22 @@ object BinaryTree {
         }
         depth
     }
+    /**
+      * Leetcode 111
+      * Given a binary tree, find its minimum depth.
+      * @param root
+      * @return
+      */
+    def rcMinDepth(root: TreeNode): Int = {
+        def helper(root:TreeNode): Int={
+            if (root == null) return 0
+            if (root.left == null && root.right == null) return 1
+            if (root.left == null) return helper(root.right) + 1 
+            if (root.right == null) return helper(root.left) + 1 
+            return math.min(helper(root.left), helper(root.left)) + 1           
+        }
+        helper(root)
+    }
 
     /**
      * Leetcode 297
