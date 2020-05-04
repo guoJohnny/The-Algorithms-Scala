@@ -44,8 +44,12 @@ class BinaryTreeSpec extends FlatSpec{
     assert(BinaryTree.rcmaxDepth(root) === 3)
   }
 
-  "BinaryTree min depth" should "return a Int passed to it" in {
+  "BinaryTree recursive min depth" should "return a Int passed to it" in {
     assert(BinaryTree.rcMinDepth(root) === 2)
+  }
+
+  "BinaryTree BFS min depth" should "return a Int passed to it" in {
+    assert(BinaryTree.bfsMinDepth(root) === 2)
   }
 
   "Recrusively Symmetric Tree" should "return a boolean passed to it" in {

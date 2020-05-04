@@ -286,6 +286,32 @@ object BinaryTree {
     }
 
     /**
+      * Leetcode 111
+      * Given a binary tree, find its minimum depth.
+      * BFS Algorithm
+      * @param root
+      * @return
+      */
+    def bfsMinDepth(root: TreeNode): Int = {
+        val queue = new Queue[TreeNode]()
+        if (root == null) return 0
+        if (root.left == null && root.right == null) return 1
+        queue.enqueue(root)
+        var depth = 0
+        while (queue.nonEmpty){
+            depth += 1
+            (1 to queue.size).foreach(x =>{
+                val curNode = queue.dequeue()
+                // the left and right child nodes of the node are null, the node is at the minimum depth.
+                if (curNode.left == null &&  curNode.right == null) return depth
+                if (curNode.left != null) queue.enqueue(curNode.left)
+                if (curNode.right != null) queue.enqueue(curNode.right)
+            })
+        }
+        return depth
+    }
+
+    /**
      * Leetcode 297
      * Preorder recrusive serialize a binary tree from a root tree node
      * @param root  - a root Treenode
