@@ -57,7 +57,17 @@ object BinaryTree {
             root
         }   
     }
-    
+    /**
+      * Given n, how many structurally unique BST's (binary search trees) that store values 1 ... n?
+      * Using Catalan number
+      * @param n    - number of tree node
+      * @return     - unique BST's number
+      */
+    def numTrees(n: Int): Int = {
+        val num = (0 to n-1).foldLeft(1L) {(c, i)=> c * 2 * (2 * i + 1) / (i + 2)}
+        num.toInt
+    }
+
     /**
       * Leetcode 101
       * Given a binary tree, check whether it is a mirror of itself (ie, symmetric around its center).

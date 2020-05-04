@@ -18,12 +18,16 @@ class BinaryTreeSpec extends FlatSpec{
     assert(BinaryTree.serialize(BinaryTree.buildFromPreIn(preOrder,inOrder)) === "[1,2,3,null,null,4,5]")
   }
 
-  "BinaryTree inorder prester build tree" should "return a String" in {  
+  "BinaryTree inorder prester build tree" should "return a String passed to it" in {  
     assert(BinaryTree.serialize(root) === "[3,9,20,null,null,15,7]")
   }
 
-  "BinaryTree inorder poster build tree" should "return a String" in {  
+  "BinaryTree inorder poster build tree" should "return a String passed to it" in {  
     assert(BinaryTree.serialize(BinaryTree.buildFromInPost(inOrder,postOrder)) === "[3,9,20,null,null,15,7]")
+  }
+
+  "BinaryTree unique BST's number" should "return a Int passed to it" in {  
+    assert(BinaryTree.numTrees(3) === 5)
   }
 
   "BinaryTree level traversal" should "return a List" in {  
