@@ -95,16 +95,14 @@ object BinaryTree {
                     list.append(new TreeNode(start))
                     return list.toList
                 }
-                for (i <- start to end){
-                    val left = generate(start, i - 1)
-                    val right = generate(i + 1, end)
+                start.to(end).foreach(idx =>{
                     for {
-                        left <- left
-                        right <- right
-                        middle = makeNode(i, left, right)
+                        left <- generate(start, idx - 1)
+                        right <- generate(idx + 1, end)
+                        middle = makeNode(idx, left, right)                       
                     } list.append(middle)
-                }
-                return list.toList
+                })
+                list.toList
             }
         generate(1, n)
     } 
