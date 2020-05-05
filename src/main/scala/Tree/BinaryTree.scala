@@ -58,6 +58,7 @@ object BinaryTree {
         }   
     }
     /**
+      * Leetcode 96
       * Given n, how many structurally unique BST's (binary search trees) that store values 1 ... n?
       * Using Catalan number
       * @param n    - number of tree node
@@ -67,6 +68,46 @@ object BinaryTree {
         val num = (0 to n-1).foldLeft(1L) {(c, i)=> c * 2 * (2 * i + 1) / (i + 2)}
         num.toInt
     }
+    /**
+      * Leetcode 95
+      * Given an integer n, generate all structurally unique BST's (binary search trees) that store values 1 ... n.
+      * example input 3
+      * output [[1,null,2,null,3],[1,null,3,2],[2,1,3],[3,1,null,null,2],[3,2,null,1]]
+      * @param n    - number of treenode
+      * @return     - list of Treenode
+      */
+    def generateTrees(n: Int): List[TreeNode] = n match {
+        case 0 => Nil
+        case _ => 
+            def makeNode(_value: Int, left: TreeNode, right: TreeNode): TreeNode = {
+                val ret = new TreeNode(_value)
+                ret.left = left
+                ret.right = right
+                ret
+            }
+            def generate (start: Int, end: Int): List[TreeNode] = {
+                val list = new ListBuffer[TreeNode]()
+                if (start > end) {
+                    list.append(null) 
+                    return list.toList
+                }
+                if (start == end) {
+                    list.append(new TreeNode(start))
+                    return list.toList
+                }
+                for (i <- start to end){
+                    val left = generate(start, i - 1)
+                    val right = generate(i + 1, end)
+                    for {
+                        left <- left
+                        right <- right
+                        middle = makeNode(i, left, right)
+                    } list.append(middle)
+                }
+                return list.toList
+            }
+        generate(1, n)
+    } 
 
     /**
       * Leetcode 101

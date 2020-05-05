@@ -30,6 +30,11 @@ class BinaryTreeSpec extends FlatSpec{
     assert(BinaryTree.numTrees(3) === 5)
   }
 
+  "BinaryTree unique BST" should "return a List passed to it" in { 
+    val list = for {node <- BinaryTree.generateTrees(3)} yield BinaryTree.serialize(node)
+    assert(list.mkString("[",",","]") === "[[1,null,2,null,3],[1,null,3,2],[2,1,3],[3,1,null,null,2],[3,2,null,1]]")
+  }
+
   "BinaryTree level traversal" should "return a List" in {  
     val tree: List[List[Int]] =
         List(
