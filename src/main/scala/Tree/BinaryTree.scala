@@ -79,12 +79,6 @@ object BinaryTree {
     def generateTrees(n: Int): List[TreeNode] = n match {
         case 0 => Nil
         case _ => 
-            def makeNode(_value: Int, left: TreeNode, right: TreeNode): TreeNode = {
-                val ret = new TreeNode(_value)
-                ret.left = left
-                ret.right = right
-                ret
-            }
             def generate (start: Int, end: Int): List[TreeNode] = {
                 val list = new ListBuffer[TreeNode]()
                 if (start > end) {
@@ -98,9 +92,13 @@ object BinaryTree {
                 start.to(end).foreach(idx =>{
                     for {
                         left <- generate(start, idx - 1)
-                        right <- generate(idx + 1, end)
-                        middle = makeNode(idx, left, right)                       
-                    } list.append(middle)
+                        right <- generate(idx + 1, end)                 
+                    } list.append({
+                        val ret = new TreeNode(idx)
+                        ret.left = left
+                        ret.right = right
+                        ret
+                    })
                 })
                 list.toList
             }
