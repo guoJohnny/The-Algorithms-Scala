@@ -106,6 +106,22 @@ object BinaryTree {
     } 
 
     /**
+      * Leetcode 98
+      * Given a binary tree, determine if it is a valid binary search tree (BST).
+      * 
+      * @param root
+      * @return
+      */
+    def isValidBST(root: TreeNode): Boolean = {
+        def helper(root: TreeNode, lower: Long = Long.MinValue, upper: Long = Long.MaxValue): Boolean = {
+            if (root == null) return true
+            if (root.value <= lower || root.value >= upper) return false        
+            return helper(root.right, root.value, upper) && helper(root.left, lower, root.value)
+        }
+        helper(root)
+    }
+
+    /**
       * Leetcode 101
       * Given a binary tree, check whether it is a mirror of itself (ie, symmetric around its center).
       * recursively solution

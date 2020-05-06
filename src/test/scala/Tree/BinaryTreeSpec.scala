@@ -35,6 +35,13 @@ class BinaryTreeSpec extends FlatSpec{
     assert(list.mkString("[",",","]") === "[[1,null,2,null,3],[1,null,3,2],[2,1,3],[3,1,null,null,2],[3,2,null,1]]")
   }
 
+  "BinaryTree valid BST" should "return a Boolean passed to it" in { 
+    assert(BinaryTree.isValidBST(root) === false)
+    val preOrder = Array[Int](2,1,3)
+    val inOrder = Array[Int](1,2,3)
+    assert(BinaryTree.isValidBST(BinaryTree.buildFromPreIn(preOrder,inOrder)) === true)
+  }
+
   "BinaryTree level traversal" should "return a List" in {  
     val tree: List[List[Int]] =
         List(
