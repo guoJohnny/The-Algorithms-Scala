@@ -44,6 +44,14 @@ class BinaryTreeSpec extends FlatSpec{
     assert(BinaryTree.inorderValidBST(BinaryTree.buildFromPreIn(preOrder,inOrder)) === true)
   }
 
+  "BinaryTree recover BST" should "return a recovered tree passed to it" in { 
+    val preOrder = Array[Int](1, 3, 2)
+    val inOrder = Array[Int](3, 2, 1)
+    val root = BinaryTree.buildFromPreIn(preOrder,inOrder)
+    BinaryTree.recoverTree(root)
+    assert(BinaryTree.serialize(root) === "[3,1,null,null,2]")
+  }
+
   "BinaryTree level traversal" should "return a List" in {  
     val tree: List[List[Int]] =
         List(

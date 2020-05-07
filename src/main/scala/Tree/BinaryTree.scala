@@ -124,7 +124,7 @@ object BinaryTree {
     /**
       * Leetcode 98
       * Given a binary tree, determine if it is a valid binary search tree (BST).
-      * DFS
+      * Inorder
       * @param root
       * @return
       */
@@ -144,6 +144,40 @@ object BinaryTree {
             curNode = curNode.right           
         }
         true
+    }
+
+    /** 
+      * Leetcode 99 
+      * Two elements of a binary search tree (BST) are swapped by mistake.
+      * Recover the tree without changing its structure.
+      * @param root - a recovered BST
+      */
+    def recoverTree(root: TreeNode): Unit = {
+        var stack = List[TreeNode]()
+        var x, y, pred: TreeNode = null
+        var curNode = root
+        while (curNode != null || stack.nonEmpty){
+            while (curNode != null) {
+                stack = curNode :: stack
+                curNode = curNode.left
+            }
+            curNode = stack.head
+            stack = stack.tail
+            if (pred != null && curNode.value < pred.value) {
+                if (x == null) {
+                    x = pred
+                    y = curNode
+                } else {
+                    y = curNode
+                }
+            }
+            pred = curNode
+            curNode = curNode.right       
+        }
+        // swap node
+        x.value = x.value ^ y.value
+        y.value = x.value ^ y.value
+        x.value = x.value ^ y.value
     }
 
     /**
