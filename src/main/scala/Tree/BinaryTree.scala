@@ -108,7 +108,7 @@ object BinaryTree {
     /**
       * Leetcode 98
       * Given a binary tree, determine if it is a valid binary search tree (BST).
-      * 
+      * Recursive
       * @param root
       * @return
       */
@@ -119,6 +119,31 @@ object BinaryTree {
             return helper(root.right, root.value, upper) && helper(root.left, lower, root.value)
         }
         helper(root)
+    }
+
+    /**
+      * Leetcode 98
+      * Given a binary tree, determine if it is a valid binary search tree (BST).
+      * DFS
+      * @param root
+      * @return
+      */
+    def inorderValidBST(root: TreeNode): Boolean = {
+        var stack = List[TreeNode]()
+        var inorder = Long.MinValue
+        var curNode = root
+        while (curNode != null || stack.nonEmpty){
+            while (curNode != null) {
+                stack = curNode :: stack
+                curNode = curNode.left
+            }
+            curNode = stack.head
+            stack = stack.tail
+            if (curNode.value <= inorder) return false
+            inorder = curNode.value
+            curNode = curNode.right           
+        }
+        true
     }
 
     /**
