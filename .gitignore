@@ -16,5 +16,5 @@ target/
 project/target
 .bloop
 .metals
-project/metals.sbt
 project/plugins.sbt
+project/metals.sbt
