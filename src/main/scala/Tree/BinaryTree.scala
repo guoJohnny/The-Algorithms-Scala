@@ -334,6 +334,27 @@ object BinaryTree {
         }        
         list.toList.reverse
     }
+
+    /**
+      * LeetCode 108
+      * Given an array where elements are sorted in ascending order, convert it to a height balanced BST.
+      * For this problem, a height-balanced binary tree is defined as a binary tree 
+      * in which the depth of the two subtrees of every node never differ by more than 1.
+      * @param nums
+      * @return
+      */
+    def sortedArrayToBST(nums: Array[Int]): TreeNode = {
+        def helper (left: Int, right: Int): TreeNode = {
+            if (left > right) return null
+            val p: Int = (left + right) / 2
+            val root = new TreeNode(nums(p))
+            root.left = helper(left, p - 1)
+            root.right = helper(p + 1, right)
+            root
+        }
+        helper(0, nums.length - 1)
+    }
+
     /**
       * Leetcode 94
       * Given a binary tree, return the inorder traversal of its nodes' values.

@@ -121,4 +121,8 @@ class BinaryTreeSpec extends FlatSpec{
     assert(BinaryTree.isBalanced(BinaryTree.buildFromPreIn(preOrder,inOrder)) === true)
   }
 
+  "Build binaryTree from a sort array" should "return a Tree passed to it" in {  
+    assert(BinaryTree.serialize(BinaryTree.sortedArrayToBST(Array[Int](-10,-3,0,5,9))) === "[0,-10,5,null,-3,null,9]")
+  }
+
 }
