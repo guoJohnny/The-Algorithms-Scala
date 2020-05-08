@@ -180,6 +180,31 @@ object BinaryTree {
         x.value = x.value ^ y.value
     }
 
+    /** 
+      * Leetcode 99 
+      * Two elements of a binary search tree (BST) are swapped by mistake.
+      * Recover the tree without changing its structure.
+      * Recrusively
+      * @param root - a recovered BST
+      */
+    def rcRecoverTree(root: TreeNode): Unit = {
+        var first, second, pred: TreeNode = null
+        def helper(root: TreeNode): Unit = {
+            if (root == null) return
+            helper(root.left)
+            if (pred != null && root.value < pred.value) {
+                if (first == null) first = pred
+                second = root
+            }
+            pred = root
+            helper(root.right)
+        }
+        helper(root)
+        val tmp = first.value
+        first.value = second.value
+        second.value = tmp
+    }
+
     /**
       * Leetcode 101
       * Given a binary tree, check whether it is a mirror of itself (ie, symmetric around its center).
