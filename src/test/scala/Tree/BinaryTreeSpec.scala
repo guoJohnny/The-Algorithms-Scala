@@ -125,4 +125,11 @@ class BinaryTreeSpec extends FlatSpec{
     assert(BinaryTree.serialize(BinaryTree.sortedArrayToBST(Array[Int](-10,-3,0,5,9))) === "[0,-10,5,null,-3,null,9]")
   }
 
+  "Build binaryTree from a sort list" should "return a Tree passed to it" in { 
+    // create list [-10,-3,0,5,9]
+    val root = new ListNode(-10)
+    root.setNextNode(-3).setNextNode(0).setNextNode(5).setNextNode(9)
+    assert(BinaryTree.serialize(BinaryTree.sortedListToBST(root)) === "[0,-10,5,null,-3,null,9]")
+  }
+
 }

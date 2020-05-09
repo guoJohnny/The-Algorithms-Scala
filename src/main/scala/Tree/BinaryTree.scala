@@ -356,6 +356,26 @@ object BinaryTree {
     }
 
     /**
+      * Leetcode 109
+      * Given a singly linked list where elements are sorted in ascending order, 
+      * convert it to a height balanced BST.
+      * @return
+      */
+    def sortedListToBST(head: ListNode): TreeNode = {
+        def listToArray(list: ListNode): Array[Int] = {
+            val array = new ArrayBuffer[Int]()
+            var head = list
+            if (head == null) return array.toArray
+            while(head != null) {
+                array.append(head.x)
+                head = head.next
+            }
+            return array.toArray
+        }
+        sortedArrayToBST(listToArray(head))
+    }
+
+    /**
       * Leetcode 94
       * Given a binary tree, return the inorder traversal of its nodes' values.
       * recrusively solution
