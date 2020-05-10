@@ -139,4 +139,11 @@ class BinaryTreeSpec extends FlatSpec{
     assert(BinaryTree.serialize(BinaryTree.sortedListToBST(setListNode(Array[Int](-10,-3,0,5,9)))) === "[0,-10,5,null,-3,null,9]")
   }
 
+  "BinaryTree flatten" should "return a flatten serialize list passed to it" in {
+    val preOrder = Array(1,2,3,4,5,6)
+    val inOrder = Array(3,2,4,1,5,6)
+    val root = BinaryTree.buildFromPreIn(preOrder,inOrder)
+    BinaryTree.rcFlatten(root)    
+    assert(BinaryTree.serialize(root) === "[1,null,2,null,3,null,4,null,5,null,6]")
+  }
 }

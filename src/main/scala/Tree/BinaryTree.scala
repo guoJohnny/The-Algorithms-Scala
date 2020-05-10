@@ -554,4 +554,23 @@ object BinaryTree {
         }
         return helper(root) >= 0
     }
+
+    /**
+      * Leetcode 114
+      * Given a binary tree, flatten it to a linked list in-place.
+      * Recrusively
+      * @param root     - tree node
+      */
+    def rcFlatten(root: TreeNode): Unit = {
+        var pre: TreeNode = null
+        def helper(root: TreeNode) : Unit = {
+            if (root == null) return
+            helper(root.right)
+            helper(root.left)
+            root.right = pre
+            root.left = null
+            pre = root
+        }
+        helper(root)
+    }
 }
