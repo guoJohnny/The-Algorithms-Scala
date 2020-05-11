@@ -117,6 +117,14 @@ class BinaryTreeSpec extends FlatSpec{
     assert(BinaryTree.inorderTraversal(BinaryTree.buildFromPreIn(preOrder,inOrder)) === list)
   }
 
+  "BinaryTree postorder traversal" should "return a List" in {  
+    val tree = List[Int](3,2,1)
+    val preOrder = Array[Int](1, 2, 3)
+    val inOrder = Array[Int](3, 2, 1)
+    val root = BinaryTree.buildFromPreIn(preOrder,inOrder)
+    assert(BinaryTree.rcPostorderTraversal(root) === tree)
+  }
+
   "BinaryTree isBalanced" should "return a Boolean passed to it" in {
     assert(BinaryTree.isBalanced(BinaryTree.buildFromPreIn(preOrder,inOrder)) === true)
   }
@@ -142,8 +150,11 @@ class BinaryTreeSpec extends FlatSpec{
   "BinaryTree flatten" should "return a flatten serialize list passed to it" in {
     val preOrder = Array(1,2,3,4,5,6)
     val inOrder = Array(3,2,4,1,5,6)
+    val rcRoot = BinaryTree.buildFromPreIn(preOrder,inOrder)
     val root = BinaryTree.buildFromPreIn(preOrder,inOrder)
-    BinaryTree.rcFlatten(root)    
+    BinaryTree.rcFlatten(rcRoot)
+    BinaryTree.flatten(root)    
+    assert(BinaryTree.serialize(rcRoot) === "[1,null,2,null,3,null,4,null,5,null,6]")
     assert(BinaryTree.serialize(root) === "[1,null,2,null,3,null,4,null,5,null,6]")
   }
 }

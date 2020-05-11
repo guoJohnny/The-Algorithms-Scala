@@ -419,6 +419,24 @@ object BinaryTree {
         list.toList
     }
 
+    /**
+      * Leetcode 145
+      * Given a binary tree, return the postorder traversal of its nodes' values.
+      * @param root
+      * @return
+      */
+    def rcPostorderTraversal(root: TreeNode): List[Int] = {
+        val list =new ListBuffer[Int]()
+        def helper(root: TreeNode): Unit = {
+            if (root == null) return
+            helper(root.left)
+            helper(root.right)
+            list.append(root.value)
+        }
+        helper(root)
+        list.toList
+    }
+
     /** 
       * Leetcode 104
       * Discription:Given a binary tree, find its maximum depth. 
@@ -572,5 +590,34 @@ object BinaryTree {
             pre = root
         }
         helper(root)
+    }
+
+    /**
+      * Leetcode 114
+      * Given a binary tree, flatten it to a linked list in-place.
+      * Iteratively
+      * @param root     - tree node
+      */
+    def flatten(root: TreeNode): Unit = {
+        var stack = List[TreeNode]()
+        var cur = root
+        var pre: TreeNode = null 
+        while (stack.nonEmpty || cur != null) {
+            while (cur != null) {
+                stack = cur :: stack
+                cur = cur.right
+            }
+            cur = stack.head
+            // if current node hasn't left node or it's right node have been traversed 
+            if (cur.left == null || cur.left == pre) {
+                stack = stack.tail
+                cur.right = pre
+                cur.left = null
+                pre = cur
+                cur = null
+            } else {
+                cur = cur.left
+            }
+        }       
     }
 }
