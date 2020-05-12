@@ -8,22 +8,58 @@ class BinaryTreeSpec extends FlatSpec{
   val postOrder = Array(9,15,7,20,3)
   val root = BinaryTree.buildFromPreIn(preOrder,inOrder)
 
+  var obj = new Codec()
+
   "BinaryTree rcSerialize" should "return a serialized String passed to it" in {
-    assert(BinaryTree.rcserialize(root) === "3,9,null,null,20,15,null,null,7,null,null")
+    assert(obj.rcserialize(root) === "[3,9,null,null,20,15,null,null,7,null,null]")
+  }
+
+  "BinaryTree rcDeserialize" should "return a deserialized Treenode passed to it" in {
+    assert(obj.serialize(obj.preorderDeserialize("[1,2,null,null,3,4,null,null,5,null,null]")) === "[1,2,3,null,null,4,5]")
+  }
+
+  "BinaryTree Recrusively Serialize and Deserialize" should "passed to the case" in {
+    val preOrder = Array(1,2,3,4,5)
+    val inOrder = Array(2,1,4,3,5)
+    val s = obj.rcserialize(BinaryTree.buildFromPreIn(preOrder,inOrder))
+    assert(s === "[1,2,null,null,3,4,null,null,5,null,null]")
+    val ans = obj.preorderDeserialize(s)
+    assert(obj.serialize(ans) === "[1,2,3,null,null,4,5]")
+  }
+
+  "BinaryTree serialize" should "return a serialized Treenode passed to it" in {
+    val preOrder = Array(1,2,3,4,5)
+    val inOrder = Array(2,1,4,3,5)
+    val s = obj.serialize(BinaryTree.buildFromPreIn(preOrder,inOrder))
+    assert(s === "[1,2,3,null,null,4,5]")
+  }
+
+  "BinaryTree deserialize" should "return a serialized Treenode passed to it" in {
+    assert(obj.serialize(obj.deserialize("[1,2,3,null,null,4,5]")) === "[1,2,3,null,null,4,5]")
+  }
+
+  "BinaryTree Iteratively Serialize and Deserialize" should "passed to the case" in {
+    val preOrder = Array(1,2,3,4,5)
+    val inOrder = Array(2,1,4,3,5)
+    val s = obj.serialize(BinaryTree.buildFromPreIn(preOrder,inOrder))
+    assert(s === "[1,2,3,null,null,4,5]")
+    val ans = obj.deserialize(s)
+    assert(obj.serialize(ans) === "[1,2,3,null,null,4,5]")
   }
 
   "BinaryTree level serialize" should "return a serialized String passed to it" in {
     val preOrder = Array(1,2,3,4,5)
     val inOrder = Array(2,1,4,3,5)
-    assert(BinaryTree.serialize(BinaryTree.buildFromPreIn(preOrder,inOrder)) === "[1,2,3,null,null,4,5]")
+    assert(obj.serialize(BinaryTree.buildFromPreIn(preOrder,inOrder)) === "[1,2,3,null,null,4,5]")
   }
+  
 
   "BinaryTree inorder prester build tree" should "return a String passed to it" in {  
-    assert(BinaryTree.serialize(root) === "[3,9,20,null,null,15,7]")
+    assert(obj.serialize(root) === "[3,9,20,null,null,15,7]")
   }
 
   "BinaryTree inorder poster build tree" should "return a String passed to it" in {  
-    assert(BinaryTree.serialize(BinaryTree.buildFromInPost(inOrder,postOrder)) === "[3,9,20,null,null,15,7]")
+    assert(obj.serialize(BinaryTree.buildFromInPost(inOrder,postOrder)) === "[3,9,20,null,null,15,7]")
   }
 
   "BinaryTree unique BST's number" should "return a Int passed to it" in {  
@@ -31,7 +67,7 @@ class BinaryTreeSpec extends FlatSpec{
   }
 
   "BinaryTree unique BST" should "return a List passed to it" in { 
-    val list = for {node <- BinaryTree.generateTrees(3)} yield BinaryTree.serialize(node)
+    val list = for {node <- BinaryTree.generateTrees(3)} yield obj.serialize(node)
     assert(list.mkString("[",",","]") === "[[1,null,2,null,3],[1,null,3,2],[2,1,3],[3,1,null,null,2],[3,2,null,1]]")
   }
 
@@ -51,8 +87,8 @@ class BinaryTreeSpec extends FlatSpec{
     val rcRoot = BinaryTree.buildFromPreIn(preOrder,inOrder)
     BinaryTree.recoverTree(root)
     BinaryTree.rcRecoverTree(rcRoot)
-    assert(BinaryTree.serialize(root) === "[3,1,null,null,2]")
-    assert(BinaryTree.serialize(rcRoot) === "[3,1,null,null,2]")
+    assert(obj.serialize(root) === "[3,1,null,null,2]")
+    assert(obj.serialize(rcRoot) === "[3,1,null,null,2]")
   }
 
   "BinaryTree level traversal" should "return a List" in {  
@@ -132,7 +168,7 @@ class BinaryTreeSpec extends FlatSpec{
   }
 
   "Build binaryTree from a sort array" should "return a Tree passed to it" in {  
-    assert(BinaryTree.serialize(BinaryTree.sortedArrayToBST(Array[Int](-10,-3,0,5,9))) === "[0,-10,5,null,-3,null,9]")
+    assert(obj.serialize(BinaryTree.sortedArrayToBST(Array[Int](-10,-3,0,5,9))) === "[0,-10,5,null,-3,null,9]")
   }
 
   "Build binaryTree from a sort list" should "return a Tree passed to it" in { 
@@ -146,7 +182,7 @@ class BinaryTreeSpec extends FlatSpec{
         })
         nullHead.next
     }
-    assert(BinaryTree.serialize(BinaryTree.sortedListToBST(setListNode(Array[Int](-10,-3,0,5,9)))) === "[0,-10,5,null,-3,null,9]")
+    assert(obj.serialize(BinaryTree.sortedListToBST(setListNode(Array[Int](-10,-3,0,5,9)))) === "[0,-10,5,null,-3,null,9]")
   }
 
   "BinaryTree flatten" should "return a flatten serialize list passed to it" in {
@@ -156,7 +192,7 @@ class BinaryTreeSpec extends FlatSpec{
     val root = BinaryTree.buildFromPreIn(preOrder,inOrder)
     BinaryTree.rcFlatten(rcRoot)
     BinaryTree.flatten(root)    
-    assert(BinaryTree.serialize(rcRoot) === "[1,null,2,null,3,null,4,null,5,null,6]")
-    assert(BinaryTree.serialize(root) === "[1,null,2,null,3,null,4,null,5,null,6]")
+    assert(obj.serialize(rcRoot) === "[1,null,2,null,3,null,4,null,5,null,6]")
+    assert(obj.serialize(root) === "[1,null,2,null,3,null,4,null,5,null,6]")
   }
 }
