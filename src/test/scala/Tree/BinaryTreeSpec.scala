@@ -121,8 +121,10 @@ class BinaryTreeSpec extends FlatSpec{
     val tree = List[Int](3,2,1)
     val preOrder = Array[Int](1, 2, 3)
     val inOrder = Array[Int](3, 2, 1)
+    val rcRoot = BinaryTree.buildFromPreIn(preOrder,inOrder)
     val root = BinaryTree.buildFromPreIn(preOrder,inOrder)
-    assert(BinaryTree.rcPostorderTraversal(root) === tree)
+    assert(BinaryTree.rcPostorderTraversal(rcRoot) === tree)
+    assert(BinaryTree.postorderTraversal(root) === tree )
   }
 
   "BinaryTree isBalanced" should "return a Boolean passed to it" in {

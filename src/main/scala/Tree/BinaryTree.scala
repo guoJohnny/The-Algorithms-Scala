@@ -422,6 +422,7 @@ object BinaryTree {
     /**
       * Leetcode 145
       * Given a binary tree, return the postorder traversal of its nodes' values.
+      * Recrusively
       * @param root
       * @return
       */
@@ -434,6 +435,29 @@ object BinaryTree {
             list.append(root.value)
         }
         helper(root)
+        list.toList
+    }
+
+    /**
+      * Leetcode 145
+      * Given a binary tree, return the postorder traversal of its nodes' values.
+      * @param root
+      * @return
+      */
+    def postorderTraversal(root: TreeNode): List[Int] = {
+        var stack = List[TreeNode]()
+        val list =new ListBuffer[Int]()
+        var temp = root
+        while (temp != null || stack.nonEmpty) {
+            if (temp != null) {
+                temp.value +=: list  
+                stack = temp :: stack
+                temp = temp.right
+            } else {
+                temp = stack.head.left
+                stack = stack.tail
+            }
+        }
         list.toList
     }
 
