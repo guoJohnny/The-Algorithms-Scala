@@ -46,14 +46,7 @@ class BinaryTreeSpec extends FlatSpec{
     val ans = obj.deserialize(s)
     assert(obj.serialize(ans) === "[1,2,3,null,null,4,5]")
   }
-
-  "BinaryTree level serialize" should "return a serialized String passed to it" in {
-    val preOrder = Array(1,2,3,4,5)
-    val inOrder = Array(2,1,4,3,5)
-    assert(obj.serialize(BinaryTree.buildFromPreIn(preOrder,inOrder)) === "[1,2,3,null,null,4,5]")
-  }
   
-
   "BinaryTree inorder prester build tree" should "return a String passed to it" in {  
     assert(obj.serialize(root) === "[3,9,20,null,null,15,7]")
   }
@@ -118,15 +111,11 @@ class BinaryTreeSpec extends FlatSpec{
   }
 
   "Recrusively Symmetric Tree" should "return a boolean passed to it" in {
-    val preOrder = Array[Int](1,2,2)
-    val inOrder = Array[Int](2,1,2)
-    assert(BinaryTree.rcSymmetric(BinaryTree.buildFromPreIn(preOrder,inOrder)) === true)
+    assert(BinaryTree.rcSymmetric(obj.deserialize("[1,2,2]")) === true)
   }
 
   "Iteratively Symmetric Tree" should "return a boolean passed to it" in {
-    val preOrder = Array[Int](1,2,2)
-    val inOrder = Array[Int](2,1,2)
-    assert(BinaryTree.isSymmetric(BinaryTree.buildFromPreIn(preOrder,inOrder)) === true)
+    assert(BinaryTree.isSymmetric(obj.deserialize("[1,2,2]")) === true)
   }
 
   "zigzag level order" should "return a List" in {  
@@ -143,7 +132,7 @@ class BinaryTreeSpec extends FlatSpec{
     val list = List[Int](1,3,2)
     val preOrder = Array(1,2,3)
     val inOrder = Array(1,3,2)
-    assert(BinaryTree.rcInorderTraversal(BinaryTree.buildFromPreIn(preOrder,inOrder)) === list)
+    assert(BinaryTree.rcInorderTraversal(BinaryTree.buildFromPreIn(preOrder, inOrder)) === list)
   }
 
   "BinaryTree Inorder" should "return a List passed to it" in {
@@ -186,10 +175,8 @@ class BinaryTreeSpec extends FlatSpec{
   }
 
   "BinaryTree flatten" should "return a flatten serialize list passed to it" in {
-    val preOrder = Array(1,2,3,4,5,6)
-    val inOrder = Array(3,2,4,1,5,6)
-    val rcRoot = BinaryTree.buildFromPreIn(preOrder,inOrder)
-    val root = BinaryTree.buildFromPreIn(preOrder,inOrder)
+    val rcRoot = obj.deserialize("[1,2,5,3,4,null,6]")
+    val root = obj.deserialize("[1,2,5,3,4,null,6]")
     BinaryTree.rcFlatten(rcRoot)
     BinaryTree.flatten(root)    
     assert(obj.serialize(rcRoot) === "[1,null,2,null,3,null,4,null,5,null,6]")
