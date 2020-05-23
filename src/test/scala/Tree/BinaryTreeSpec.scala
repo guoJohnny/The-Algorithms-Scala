@@ -182,4 +182,10 @@ class BinaryTreeSpec extends FlatSpec{
     assert(obj.serialize(rcRoot) === "[1,null,2,null,3,null,4,null,5,null,6]")
     assert(obj.serialize(root) === "[1,null,2,null,3,null,4,null,5,null,6]")
   }
+
+  "Find binaryTree math path sum" should "return a int passed to it" in {
+    val root = obj.deserialize("[-10,9,20,null,null,15,7]")
+    assert(BinaryTree.maxPathSum(root) === 42)
+  }
+
 }

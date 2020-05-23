@@ -605,4 +605,26 @@ object BinaryTree {
             }
         }       
     }
+    
+    /**
+      * Leecode 124
+      * Given a non-empty binary tree, find the maximum path sum.
+      * For this problem, 
+      * a path is defined as any sequence of nodes from some starting node to any node in the tree along the parent-child connections.
+      * The path must contain at least one node and does not need to go through the root.
+      * @param root
+      * @return     - Int max path num
+      */
+    def maxPathSum(root: TreeNode): Int = {
+        var max = Int.MinValue
+        def helper(root: TreeNode): Int = {
+            if (root == null) return 0
+            val leftMax = Math.max(helper(root.left), 0)
+            val rightMax = Math.max(helper(root.right), 0)
+            max = Math.max(max, root.value + leftMax + rightMax)
+            return root.value + Math.max(leftMax, rightMax)
+        }
+        helper(root)
+        max
+    }
 }
