@@ -627,4 +627,30 @@ object BinaryTree {
         helper(root)
         max
     }
+
+    /**
+      * Leetcode 199
+      * Given a binary tree, imagine yourself standing on the right side of it,
+      * return the values of the nodes you can see ordered from top to bottom.
+      * Example：
+      * input： [1,2,3,null,5,null,4]
+      * output： [1, 3, 4]
+      * @param root
+      * @return
+      */
+    def rightSideView(root: TreeNode): List[Int] = {
+        val queue = new Queue[TreeNode]()
+        val list = new ListBuffer[Int]()
+        if (root == null) return list.toList
+        queue.enqueue(root)
+        while (queue.nonEmpty) {
+            list.append(queue.last.value)
+            queue.indices.foreach(_ =>{
+                val node = queue.dequeue()
+                if (node.left != null) queue.enqueue(node.left)
+                if (node.right != null) queue.enqueue(node.right)
+            })
+        }
+        list.toList
+    }
 }

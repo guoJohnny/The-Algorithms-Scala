@@ -201,4 +201,9 @@ class BinaryTreeSpec extends FlatSpec{
     assert(param_3 === 3 && param_4 === true)
   }
 
+  "Binary Tree Right Side View" should "return a list passed to it" in {
+    val root = obj.deserialize("[1,2,3,4]")
+    assert(BinaryTree.rightSideView(root).mkString("[",",","]") === "[1,3,4]")
+  }
+
 }
