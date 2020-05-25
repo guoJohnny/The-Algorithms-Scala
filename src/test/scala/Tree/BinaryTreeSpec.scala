@@ -9,43 +9,6 @@ class BinaryTreeSpec extends FlatSpec{
   val root = BinaryTree.buildFromPreIn(preOrder,inOrder)
 
   var obj = new Codec()
-
-  "BinaryTree rcSerialize" should "return a serialized String passed to it" in {
-    assert(obj.rcserialize(root) === "[3,9,null,null,20,15,null,null,7,null,null]")
-  }
-
-  "BinaryTree rcDeserialize" should "return a deserialized Treenode passed to it" in {
-    assert(obj.serialize(obj.preorderDeserialize("[1,2,null,null,3,4,null,null,5,null,null]")) === "[1,2,3,null,null,4,5]")
-  }
-
-  "BinaryTree Recrusively Serialize and Deserialize" should "passed to the case" in {
-    val preOrder = Array(1,2,3,4,5)
-    val inOrder = Array(2,1,4,3,5)
-    val s = obj.rcserialize(BinaryTree.buildFromPreIn(preOrder,inOrder))
-    assert(s === "[1,2,null,null,3,4,null,null,5,null,null]")
-    val ans = obj.preorderDeserialize(s)
-    assert(obj.serialize(ans) === "[1,2,3,null,null,4,5]")
-  }
-
-  "BinaryTree serialize" should "return a serialized Treenode passed to it" in {
-    val preOrder = Array(1,2,3,4,5)
-    val inOrder = Array(2,1,4,3,5)
-    val s = obj.serialize(BinaryTree.buildFromPreIn(preOrder,inOrder))
-    assert(s === "[1,2,3,null,null,4,5]")
-  }
-
-  "BinaryTree deserialize" should "return a serialized Treenode passed to it" in {
-    assert(obj.serialize(obj.deserialize("[1,2,3,null,null,4,5]")) === "[1,2,3,null,null,4,5]")
-  }
-
-  "BinaryTree Iteratively Serialize and Deserialize" should "passed to the case" in {
-    val preOrder = Array(1,2,3,4,5)
-    val inOrder = Array(2,1,4,3,5)
-    val s = obj.serialize(BinaryTree.buildFromPreIn(preOrder,inOrder))
-    assert(s === "[1,2,3,null,null,4,5]")
-    val ans = obj.deserialize(s)
-    assert(obj.serialize(ans) === "[1,2,3,null,null,4,5]")
-  }
   
   "BinaryTree inorder prester build tree" should "return a String passed to it" in {  
     assert(obj.serialize(root) === "[3,9,20,null,null,15,7]")
@@ -186,19 +149,6 @@ class BinaryTreeSpec extends FlatSpec{
   "Find binaryTree math path sum" should "return a int passed to it" in {
     val root = obj.deserialize("[-10,9,20,null,null,15,7]")
     assert(BinaryTree.maxPathSum(root) === 42)
-  }
-
-  "Binary Search Tree Iterator" should "be instantiated and called as such" in {
-    val root:TreeNode = obj.deserialize("[7,3,15,null,null,9,20]")
-    var iter = new BSTIterator(root)
-    var param_1 = iter.next()
-    var param_2 = iter.hasNext()
-    assert(param_1 === 3)
-    assert(param_2 === true)
-    val stackIter = new BSTStackIterator(root)
-    var param_3 = stackIter.next()
-    var param_4 = stackIter.hasNext()
-    assert(param_3 === 3 && param_4 === true)
   }
 
   "Binary Tree Right Side View" should "return a list passed to it" in {
