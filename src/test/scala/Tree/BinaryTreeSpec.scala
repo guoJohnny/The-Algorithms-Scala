@@ -162,4 +162,11 @@ class BinaryTreeSpec extends FlatSpec{
     assert(BinaryTree.countNodes(root) === 6)
   }
 
+  "Invert Binary Tree" should "return a new tree passed to it" in {
+    val root = obj.deserialize("[4,2,7,1,3,6,9]")
+    assert(obj.serialize(BinaryTree.invertTree(root)) === "[4,7,2,9,6,3,1]")
+    val root_new = obj.deserialize("[4,2,7,1,3,6,9]")    
+    assert(obj.serialize(BinaryTree.iterInvertTree(root_new)) === "[4,7,2,9,6,3,1]")
+  }
+
 }

@@ -685,4 +685,45 @@ object BinaryTree {
         return 0
         1 + rcCountNodes(root.left) + rcCountNodes(root.right)
     }
+
+    /**
+      * Leetcode 226
+      * Invert a binary tree.
+      * " Google: 90% of our engineers use the software you wrote (Homebrew), 
+      * but you can’t invert a binary tree on a whiteboard so f*** off.  "
+      * @param root
+      * @return
+      */
+    def invertTree(root: TreeNode): TreeNode = {
+        if (root == null) return null
+        val right = invertTree(root.right)
+        val left = invertTree(root.left)
+        root.right = left
+        root.left = right
+        root
+    }
+
+    /**
+      * Leetcode 226
+      * Invert a binary tree. Iteratively
+      * @param root
+      * @return
+      */
+    def iterInvertTree(root: TreeNode): TreeNode = {
+        if (root == null) return null
+        val queue = new Queue[TreeNode]
+        queue.enqueue(root)
+        while (queue.nonEmpty) {
+            for (i <- 0 until queue.size){
+                val current = queue.dequeue
+                val temp = current.left
+                current.left = current.right
+                current.right = temp
+                if (current.left != null) queue.enqueue(current.left)
+                if (current.right != null) queue.enqueue(current.right)
+            }            
+        }
+        root
+    }
+    
 }
