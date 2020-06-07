@@ -653,4 +653,36 @@ object BinaryTree {
         }
         list.toList
     }
+
+    /**
+      * Leetcode 222
+      * Given a complete binary tree, count the number of nodes.
+      * In a complete binary tree every level, 
+      * except possibly the last, is completely filled, 
+      * and all nodes in the last level are as far left as possible. 
+      * It can have between 1 and 2h nodes inclusive at the last level h.
+      * @param root
+      * @return
+      */
+    def countNodes(root: TreeNode): Int = {
+        if (root == null) return 0
+        var num = 0
+        val queue = new Queue[TreeNode]
+        queue.enqueue(root)
+        while (queue.nonEmpty) {
+            num += queue.size
+            val levelnum = (1 to queue.size).foldLeft() { (_, _) =>
+                val temp = queue.dequeue
+                if (temp.left != null) queue.enqueue(temp.left)
+                if (temp.right != null) queue.enqueue(temp.right)
+            }            
+        }
+        return num
+    }
+
+    def rcCountNodes(root: TreeNode): Int = {
+        if(root == null)
+        return 0
+        1 + rcCountNodes(root.left) + rcCountNodes(root.right)
+    }
 }

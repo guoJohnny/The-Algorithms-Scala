@@ -1,4 +1,5 @@
 package Tree
+import scala.Array
 import org.scalatest.FlatSpec
 
 class BinaryTreeSpec extends FlatSpec{
@@ -154,6 +155,11 @@ class BinaryTreeSpec extends FlatSpec{
   "Binary Tree Right Side View" should "return a list passed to it" in {
     val root = obj.deserialize("[1,2,3,4]")
     assert(BinaryTree.rightSideView(root).mkString("[",",","]") === "[1,3,4]")
+  }
+
+  "Count Complete Tree Nodes" should "return a number passed to it" in {
+    val root = obj.deserialize("[1,2,3,4,5,6]")
+    assert(BinaryTree.countNodes(root) === 6)
   }
 
 }
