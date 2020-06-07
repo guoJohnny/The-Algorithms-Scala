@@ -725,5 +725,45 @@ object BinaryTree {
         }
         root
     }
+    /**
+      * Leetcode 235
+      * Given a binary search tree (BST), find the lowest common ancestor (LCA) of two given nodes in the BST.
+      * The lowest common ancestor is defined between two nodes p and q as the lowest node in T that has both p and q as descendants 
+      * (where we allow a node to be a descendant of itself
+      * @param root
+      * @param p
+      * @param q
+      * @return
+      */
+    def lowestCommonAncestor(root: TreeNode, p: TreeNode, q: TreeNode): TreeNode = {
+        // if (p.value > root.value && q.value > root.value) return lowestCommonAncestor(root.right, p, q)
+        // if (p.value < root.value && q.value < root.value) return lowestCommonAncestor(root.left, p, q)
+        // return root
+        Option(root).fold(root) { root =>
+            if (root.value > q.value && root.value > p.value) {
+                lowestCommonAncestor(root.left, p, q)
+            } else if (root.value < q.value && root.value < p.value) {
+                lowestCommonAncestor(root.right, p, q)
+            } else {
+                root
+            }
+        }
+    }
+
+    def iterLowestCommonAncestor(root: TreeNode, p: TreeNode, q: TreeNode): TreeNode = {
+        var node = root
+        while (node != null) {
+            if (p.value > node.value && q.value > node.value) {
+                node = node.right
+            }else if (p.value < node.value && q.value < node.value){
+                node = node.left
+            }else {
+                return node
+            }
+        }
+        return null
+    }
+
+
     
 }
