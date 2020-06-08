@@ -5,6 +5,7 @@ import scala.collection.mutable.ArrayBuffer
 import scala.collection.mutable.ListBuffer
 import scala.util.control.Breaks.{break, breakable}
 import scala.collection.mutable.Stack
+
 /**
   * The Algorithms of Binary Tree 
   * 
@@ -764,6 +765,43 @@ object BinaryTree {
         return null
     }
 
-
+    /**
+      * Leetcode 236
+      * Given a binary tree, find the lowest common ancestor (LCA) of two given nodes in the tree.
+      * @param root
+      * @param p
+      * @param q
+      * @return
+      */
+    def lowestCommonAncestorBT(root: TreeNode, p: TreeNode, q: TreeNode): TreeNode = {
+        import scala.collection.mutable.{Map, Set}
+        val parent: Map[Int, TreeNode] = Map()
+        val visited = Set[Int]()
+        //save nodes' parent nodes
+        def dfs(root: TreeNode): Unit = {
+            if (root.left != null) {
+                parent += (root.left.value -> root)
+                dfs(root.left)
+            }
+            if (root.right != null) {
+                parent += (root.right.value -> root)
+                dfs(root.right)
+            }
+        }
+        dfs(root)
+        var pNode = Option(p)
+        var qNode = Option(q)
+        // save visited node into visited set from p to its ancestors
+        while (pNode != None) {
+            visited.add(pNode.get.value)
+            pNode = parent.get(pNode.get.value)
+        }
+        // from q to its ancestors,find visited ancestor
+        while (qNode != None) {
+            if (visited.contains(qNode.get.value)) return qNode.get
+            qNode = parent.get(qNode.get.value)
+        }
+        return null
+    }
     
 }

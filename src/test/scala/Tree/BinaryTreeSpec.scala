@@ -176,4 +176,11 @@ class BinaryTreeSpec extends FlatSpec{
     assert(BinaryTree.lowestCommonAncestor(root, p, q).value === 6)
     assert(BinaryTree.iterLowestCommonAncestor(root, p, q).value === 6)
   }
+
+  "Lowest Common Ancestor of a Binary tree " should "return a number passed to it" in {
+    val root = obj.deserialize("[3,5,1,6,2,0,8,null,null,7,4]")
+    val p = new TreeNode(5)
+    val q = new TreeNode(1)
+    assert(BinaryTree.lowestCommonAncestorBT(root, p, q).value === 3)
+  }
 }
