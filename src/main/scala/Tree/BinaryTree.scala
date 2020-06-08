@@ -804,4 +804,24 @@ object BinaryTree {
         return null
     }
     
+    /**
+      * Leetcode 538 & Leetcode 1038
+      * Given a Binary Search Tree (BST), 
+      * convert it to a Greater Tree such that every key of the original BST is changed to the original key plus sum of all keys greater than the original key in BST.
+      * @param root
+      * @return
+      */
+    def bstToGst(root: TreeNode): TreeNode = {
+        var sum = 0
+        def helper(root: TreeNode): TreeNode = {
+            if (root != null) {
+                helper(root.right)
+                sum += root.value
+                root.value = sum
+                helper(root.left)
+            }
+            return root
+        }
+        helper(root)
+    }
 }

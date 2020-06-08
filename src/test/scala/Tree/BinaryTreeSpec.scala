@@ -183,4 +183,9 @@ class BinaryTreeSpec extends FlatSpec{
     val q = new TreeNode(1)
     assert(BinaryTree.lowestCommonAncestorBT(root, p, q).value === 3)
   }
+
+  "Convert BST to Greater Tree" should "return a new Tree passed to it" in {
+    val root = obj.deserialize("[4,1,6,0,2,5,7,null,null,null,3,null,null,null,8]")
+    assert(obj.serialize(BinaryTree.bstToGst(root)) === "[30,36,21,36,35,26,15,null,null,null,33,null,null,null,8]")
+  }
 }
