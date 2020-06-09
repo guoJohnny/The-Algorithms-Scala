@@ -188,4 +188,9 @@ class BinaryTreeSpec extends FlatSpec{
     val root = obj.deserialize("[4,1,6,0,2,5,7,null,null,null,3,null,null,null,8]")
     assert(obj.serialize(BinaryTree.bstToGst(root)) === "[30,36,21,36,35,26,15,null,null,null,33,null,null,null,8]")
   }
+
+  "Balance a Binary Search Tree" should "return a new Treenode passed to it" in {
+    val root = obj.deserialize("[1,null,2,null,3,null,4,null,null]")
+    assert(obj.serialize(BinaryTree.balanceBST(root)) === "[2,1,3,null,null,null,4]")
+  }
 }

@@ -824,4 +824,31 @@ object BinaryTree {
         }
         helper(root)
     }
+
+    /**
+      * Leetcode 1382
+      * Given a binary search tree, return a balanced binary search tree with the same node values.
+      * @param root
+      * @return
+      */
+    def balanceBST(root: TreeNode): TreeNode = {
+        val array = new ArrayBuffer[TreeNode]()
+        def inorder(root: TreeNode): Unit = {
+            if (root == null) return
+            inorder(root.left)
+            array.append(root)
+            inorder(root.right)
+        }
+        inorder(root)
+        def build(left: Int, right: Int): TreeNode = {
+            if (left > right) return null
+            val cur:Int = (left + right) / 2
+            val node = array(cur)
+            node.left = build(left, cur - 1)
+            node.right = build(cur + 1, right)
+            node
+        }
+        if (array.length < 3) return root
+        build(0, array.length - 1)
+    }
 }
