@@ -34,4 +34,28 @@ object ArrayAlgorithms {
         if (array.length % 2 == 0) return (array(mednum) + array(mednum - 1)) / 2.0
         array(array.length/2)
     }
+
+    /**
+      * Leetcode 11 
+      * Container With Most Water
+      * @param height
+      * @return
+      */
+     def maxArea(height: Array[Int]): Int = {
+        var maxArea:Int = 0
+        var (l, r) = (0, height.length -1)
+        
+        while(l < r) {
+            val hl = height(l)
+            val hr = height(r)
+            maxArea = math.max(maxArea, math.min(hl, hr) * (r-l))
+            if(hl < hr) {
+                l += 1
+            } else {
+                r -= 1
+            }
+        }
+        
+        maxArea
+    }
 }

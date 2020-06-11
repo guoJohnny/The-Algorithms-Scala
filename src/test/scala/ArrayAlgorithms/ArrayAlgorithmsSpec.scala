@@ -12,9 +12,14 @@ class ArrayAlgorithmsSpec extends FlatSpec{
         assert(arraybuffer.toArray === Array(2, 3, 11, -1, 22, 21))
     }
     
-    "Median of Two Sorted Arrays" should "return a numbere passed to it" in {     
+    "Median of Two Sorted Arrays" should "return a number passed to it" in {     
         val nums1 = Array(1,3)
         val nums2 = Array(2,4)
         assert(ArrayAlgorithms.findMedianSortedArrays(nums1, nums2) === 2.5)
+    }
+
+    "Container With Most Water" should "return a numbere passed to it" in {     
+        val array = Array(1,8,6,2,5,4,8,3,7)
+        assert(ArrayAlgorithms.maxArea(array) === 49)
     }
 }
