@@ -29,4 +29,9 @@ class ArrayAlgorithmsSpec extends FlatSpec{
         assert(ArrayAlgorithms.threeSum(array).mkString(",") === "List(-1, -1, 2),List(-1, 0, 1)")
         assert(ArrayAlgorithms.threeSumClosest(array2, 1) === 2)
     }
+
+    "Four sum" should "passed to it" in {     
+        val array = Array(1,0,-1,0,-2,2)
+        assert(ArrayAlgorithms.fourSumHash(array, 0).mkString(",") === "List(-1, 0, 0, 1),List(-2, -1, 1, 2),List(-2, 0, 0, 2)")
+    }
 }

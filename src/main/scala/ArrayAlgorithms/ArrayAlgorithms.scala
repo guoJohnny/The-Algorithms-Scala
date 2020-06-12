@@ -122,4 +122,48 @@ object ArrayAlgorithms {
         }
         ans
     }
+
+    /**
+      * Leetcode 18
+      * Given an array nums of n integers and an integer target, 
+      * are there elements a, b, c, and d in nums such that a + b + c + d = target? 
+      * Find all unique quadruplets in the array which gives the sum of target.
+      * Note: The solution set must not contain duplicate quadruplets.
+      * @param nums
+      * @param target
+      * @return
+      */
+    def fourSumHash(nums: Array[Int], target: Int): List[List[Int]] = {
+        import scala.collection.mutable.{Map, Set, ListBuffer}
+        val map: Map[Int, ListBuffer[List[Int]]] = Map()
+        val result = new ListBuffer[List[Int]]()
+        val result_set = Set[(Int, Int, Int, Int)]()
+        if (nums == null || nums.length < 4) return result.toList;
+        val (num_sort, len) = (nums.sorted, nums.length)
+        for (i <- 0 until(len - 1)) {
+            for (j <- (i+1) until(len)) {
+                val key = num_sort(i) + num_sort(j)
+                if (map.contains(target - key)) {
+                    for (turple <- map(target - key)) {
+                        if (turple(1) < i) {
+                            result_set.add((
+                                num_sort(turple(0)), 
+                                num_sort(turple(1)),
+                                num_sort(i),
+                                num_sort(j)
+                            ))
+                        }
+                    }
+                }
+                if (!map.contains(key)) {
+                    map.put(key,ListBuffer[List[Int]]())
+                }
+                map(key).append(List(i,j))
+            }
+        }
+        result_set.toList.foreach(turple => {
+            result.append(turple.productIterator.toList.map(_.toString.toInt))
+        })
+        result.toList
+    }
 }
