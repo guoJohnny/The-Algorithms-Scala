@@ -18,8 +18,15 @@ class ArrayAlgorithmsSpec extends FlatSpec{
         assert(ArrayAlgorithms.findMedianSortedArrays(nums1, nums2) === 2.5)
     }
 
-    "Container With Most Water" should "return a numbere passed to it" in {     
+    "Container With Most Water" should "return a number passed to it" in {     
         val array = Array(1,8,6,2,5,4,8,3,7)
         assert(ArrayAlgorithms.maxArea(array) === 49)
+    }
+
+    "Three sum" should "passed to it" in {     
+        val array = Array(-1,0,1,2,-1,-4)
+        val array2 = Array(-1,2,1,-4)
+        assert(ArrayAlgorithms.threeSum(array).mkString(",") === "List(-1, -1, 2),List(-1, 0, 1)")
+        assert(ArrayAlgorithms.threeSumClosest(array2, 1) === 2)
     }
 }
