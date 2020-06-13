@@ -34,4 +34,19 @@ class ArrayAlgorithmsSpec extends FlatSpec{
         val array = Array(1,0,-1,0,-2,2)
         assert(ArrayAlgorithms.fourSumHash(array, 0).mkString(",") === "List(-1, 0, 0, 1),List(-2, -1, 1, 2),List(-2, 0, 0, 2)")
     }
+
+    "Remove Duplicates from Sorted Array" should "return a number and passed to it" in {     
+        val array = Array(0,0,1,1,1,2,2,3,3,4)
+        val array2 = Array(1,1,2)
+        val number = ArrayAlgorithms.removeDuplicates(array)
+        val number2 = ArrayAlgorithms.removeDuplicates(array2)
+        assert(array.slice(0,number).mkString(",") === "0,1,2,3,4")
+        assert(array2.slice(0,number2).mkString(",") === "1,2")
+    }
+
+    "Remove Element" should "return a number and passed to it" in {     
+        val array = Array(3,2,2,3)
+        val number = ArrayAlgorithms.removeElement(array, 3)
+        assert(array.slice(0,number).mkString(",") === "2,2")
+    }
 }
