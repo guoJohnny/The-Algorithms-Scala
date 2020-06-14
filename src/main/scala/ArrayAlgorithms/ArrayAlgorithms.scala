@@ -206,4 +206,37 @@ object ArrayAlgorithms {
         return i
     }
     
+    /**
+      * Leetcode 31
+      * Implement next permutation, which rearranges numbers into the lexicographically next greater permutation of numbers.
+      * If such arrangement is not possible, it must rearrange it as the lowest possible order (ie, sorted in ascending order).
+      * The replacement must be in-place and use only constant extra memory.
+      * Here are some examples. Inputs are in the left-hand column and its corresponding outputs are in the right-hand column.
+      * @param nums
+      */
+    def nextPermutation(nums: Array[Int]): Unit = {      
+        val len = nums.length - 1     
+        def exch(nums: Array[Int], i: Int, j: Int): Unit = {
+            val temp = nums(i)
+            nums(i) = nums(j)
+            nums(j) = temp
+        }
+        def reverse(nums: Array[Int], i: Int, j: Int): Unit = {    
+            var end = j
+            for (start <- i to j if end > start) {
+                exch(nums, start, end)
+                end -= 1
+            }
+        }        
+        for (i <- (0 until len).reverse) {
+            if (nums(i) < nums(i + 1)) {
+                var j = len
+                while (j > i && nums(j) <= nums(i)) j -= 1
+                exch(nums, i, j)
+                reverse(nums, i + 1, len)
+                return 
+            }
+        }
+        reverse(nums, 0, len)
+    }
 }

@@ -49,4 +49,10 @@ class ArrayAlgorithmsSpec extends FlatSpec{
         val number = ArrayAlgorithms.removeElement(array, 3)
         assert(array.slice(0,number).mkString(",") === "2,2")
     }
+
+    "Next Permutation" should " passed to it" in {     
+        val array = Array(3,2,1)
+        ArrayAlgorithms.nextPermutation(array)
+        assert(array.mkString(",") === "1,2,3")
+    }
 }
