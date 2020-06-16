@@ -1,0 +1,64 @@
+package StringAlgorithms
+import scala.Array
+
+object StringAlgorithms {
+    /**
+      * Leetcode 3
+      * Given a string, find the length of the longest substring without repeating characters.
+      * @param s
+      * @return
+      */
+    def lengthOfLongestSubstring(s: String): Int = {
+        import scala.collection.mutable.{Map}
+        if (s == null || s.length() == 0) return 0
+        var max = 0
+        val map:Map[Char, Int] = Map()
+        var start = 0
+        for (i <- 0 until(s.length())) {
+            var cur = s.charAt(i)
+            val index = map.getOrElse(cur, -1)
+            if (start <= index) {
+                val curMax = i - start
+                max = if (curMax > max) curMax else max
+                start = index + 1
+            }
+            map.put(cur, i)
+        }
+        max = if (max > (s.length() - start)) max else s.length() - start
+        return max
+    }
+
+    /**
+      * Leetcode 5
+      * Given a string s, find the longest palindromic substring in s. 
+      * You may assume that the maximum length of s is 1000.
+      * @param s
+      * @return
+      */
+    def longestPalindrome(s: String): String = {
+        val len = s.length()
+        if (len < 2) return s
+        var maxLen = 1
+        var begin = 0
+        var dp = Array.ofDim[Boolean](len, len)   
+        // init 
+        for (i <- 0 until len) {
+            dp(i)(i) = true
+        }
+        // dp
+        for (j <- 1 until len) {
+            for (i <- 0 until j) {
+                if (s(i) != s(j)) dp(i)(j) = false 
+                else {
+                    if (j - i < 3) dp(i)(j) = true
+                    else dp(i)(j) = dp(i+1)(j-1)
+                }
+                if (dp(i)(j) && j - i + 1 > maxLen) {
+                    maxLen = j - i + 1
+                    begin = i
+                }
+            }
+        }
+        s.substring(begin, begin + maxLen)
+    }
+}
