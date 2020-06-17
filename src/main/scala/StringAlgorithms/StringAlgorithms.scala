@@ -61,4 +61,34 @@ object StringAlgorithms {
         }
         s.substring(begin, begin + maxLen)
     }
+
+    /**
+      * Leetcode 5
+      * Given a string s, find the longest palindromic substring in s. 
+      * You may assume that the maximum length of s is 1000.
+      * @param s
+      * @return
+      */
+    def longestPalindromeCentralDiffusion(s: String): String = {
+        def expandAroundCenter(s: String, left: Int, right: Int): Int = {
+            var L = left; var R = right
+            while (L >= 0 && R < s.length() && s.charAt(L) == s.charAt(R)) { 
+                L -= 1
+                R += 1
+            } 
+            return R - L - 1;
+        }
+        if (s == null || s.length() < 1) return ""
+        var (start, end) = (0, 0)
+        for (i <- 0 until s.length()) {
+            val len1 = expandAroundCenter(s, i , i)
+            val len2 = expandAroundCenter(s, i , i + 1)
+            val len = math.max(len1, len2)
+            if (len > end - start) {
+                start = i - (len - 1) / 2
+                end = i + len / 2
+            } 
+        }
+        s.substring(start, end + 1)
+    }
 }
