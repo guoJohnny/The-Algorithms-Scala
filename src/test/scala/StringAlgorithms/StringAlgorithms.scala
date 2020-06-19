@@ -12,4 +12,9 @@ class StringAlgorithmsSpec extends FlatSpec {
       assert(StringAlgorithms.longestPalindromeCentralDiffusion("babad") === "aba" || 
             StringAlgorithms.longestPalindromeCentralDiffusion("babad") === "bab")
     }
+
+    "String to Integer (atoi)" should "return a number passed to it" in {  
+      assert(StringAlgorithms.myAtoi("  -42") === -42)
+      assert(StringAlgorithms.myAtoi("42") === 42) 
+    }
 }

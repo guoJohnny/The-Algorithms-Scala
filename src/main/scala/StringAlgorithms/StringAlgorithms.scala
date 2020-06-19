@@ -91,4 +91,33 @@ object StringAlgorithms {
         }
         s.substring(start, end + 1)
     }
+
+    /**
+      * Leetcode 8
+      * atoi
+      * @param str
+      * @return
+      */
+    def myAtoi(str: String): Int = {
+        val str_tmp = str.trim()
+        if (str_tmp == null || str_tmp.length() < 1 ) return 0
+        var index = 0
+        var negative = false
+        var ans = 0
+        if (str_tmp(index) == '-') {
+            index += 1
+            negative = true
+        }else if (str_tmp(index) == '+' ) index += 1
+        else if (!Character.isDigit(str_tmp(index))) return 0
+        
+        while (index < str_tmp.length() && Character.isDigit(str_tmp(index))) {
+            val digit = str_tmp(index) - '0'
+            if (ans > (Int.MaxValue - digit) / 10) {
+                return if (negative) Int.MinValue else Int.MaxValue
+            }
+            ans = ans * 10 + digit
+            index += 1
+        }        
+        return if (negative) -ans else ans
+    }
 }
