@@ -1,5 +1,6 @@
 package StringAlgorithms
 import org.scalatest.FlatSpec
+import scala.Array
 
 class StringAlgorithmsSpec extends FlatSpec {
     
@@ -16,5 +17,10 @@ class StringAlgorithmsSpec extends FlatSpec {
     "String to Integer (atoi)" should "return a number passed to it" in {  
       assert(StringAlgorithms.myAtoi("  -42") === -42)
       assert(StringAlgorithms.myAtoi("42") === 42) 
+    }
+
+    "String common prefix" should "return a common prefix passed to it" in {  
+      assert(StringAlgorithms.longestCommonPrefix(Array("flower","flow","flight")) === "fl")
+      assert(StringAlgorithms.longestCommonPrefix(Array("dog","racecar","car")) === "") 
     }
 }
