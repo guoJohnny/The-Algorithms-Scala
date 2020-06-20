@@ -120,4 +120,31 @@ object StringAlgorithms {
         }        
         return if (negative) -ans else ans
     }
+
+    /**
+      * Leetcode 14
+      * Write a function to find the longest common prefix string amongst an array of strings.
+      * If there is no common prefix, return an empty string ""
+      * @param strs
+      * @return
+      */
+    def longestCommonPrefix(strs: Array[String]): String = {
+        def longestCommonPrefix(str1: String, str2: String): String = {
+            val length = math.min(str1.length(), str2.length())
+            var index = 0
+            while (index < length && str1(index) == str2(index)) index += 1
+            str1.substring(0, index)
+        }
+        import scala.util.control.Breaks._
+        if (strs == null || strs.length == 0) return ""
+        var prefix = strs(0)
+        var count = strs.length
+        breakable {
+            for (i <- 1 until count) {
+                prefix = longestCommonPrefix(prefix, strs(i))
+                if (prefix.length() == 0) break
+            }
+        }
+        prefix
+    }
 }
