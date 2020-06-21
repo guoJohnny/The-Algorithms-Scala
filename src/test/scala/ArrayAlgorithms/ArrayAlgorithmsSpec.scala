@@ -55,4 +55,9 @@ class ArrayAlgorithmsSpec extends FlatSpec{
         ArrayAlgorithms.nextPermutation(array)
         assert(array.mkString(",") === "1,2,3")
     }
+
+    "Search" should "return a int passed to it" in {     
+        assert(ArrayAlgorithms.search(Array(4,5,6,7,0,1,2), 0) === 4)
+        assert(ArrayAlgorithms.search(Array(4,5,6,7,0,1,2), 3) === -1)
+    }
 }
