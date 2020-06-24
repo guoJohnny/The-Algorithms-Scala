@@ -23,4 +23,10 @@ class StringAlgorithmsSpec extends FlatSpec {
       assert(StringAlgorithms.longestCommonPrefix(Array("flower","flow","flight")) === "fl")
       assert(StringAlgorithms.longestCommonPrefix(Array("dog","racecar","car")) === "") 
     }
+
+    "Letter Combinations" should "return a List passed to it" in {  
+      val list = List("ad", "bd", "cd", "ae", "be", "ce", "af", "bf", "cf")
+      assert(StringAlgorithms.letterCombinations("23").diff(list) === List())
+      assert(StringAlgorithms.rcLetterCombinations("23").diff(list) === List())
+    }
 }

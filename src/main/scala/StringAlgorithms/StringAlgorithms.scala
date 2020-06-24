@@ -147,4 +147,66 @@ object StringAlgorithms {
         }
         prefix
     }
+
+    /**
+     * Leetcode 17
+     * Letter Combinations of a Phone Number
+     * Input: "23"
+     * Output: ["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"].
+     */
+    def letterCombinations(digits: String): List[String] = {
+        val map = scala.collection.immutable.Map(
+            2 -> List('a','b','c'),
+            3 -> List('d','e','f'),
+            4 -> List('g','h','i'),
+            5 -> List('j','k','l'),
+            6 -> List('m','n','o'),
+            7 -> List('p','q','r','s'),
+            8 -> List('t','u','v'),
+            9 -> List('w','x','y','z')            
+        )
+        var ans = new scala.collection.mutable.ListBuffer[String]()
+        if (digits.isEmpty) Nil
+        for (letter <- map(digits(0).asDigit)) ans.append(letter.toString())
+        for (i <- 1 until digits.length()) {
+            val newAns = new scala.collection.mutable.ListBuffer[String]()
+            for (letter <- map(digits(i).asDigit)) {
+                for (com <- ans) newAns.append(com + letter)
+            }
+            ans = newAns
+        }
+        ans.toList
+    }
+
+    /**
+     * Leetcode 17
+     * Letter Combinations of a Phone Number
+     * Recursively
+     * Input: "23"
+     * Output: ["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"].
+     */
+    def rcLetterCombinations(digits: String): List[String] = {
+        def letters(digit: Char): List[Char] = digit match {
+            case '2' => List('a', 'b', 'c')
+            case '3' => List('d', 'e', 'f')
+            case '4' => List('g', 'h', 'i')
+            case '5' => List('j', 'k', 'l')
+            case '6' => List('m', 'n', 'o')
+            case '7' => List('p', 'q', 'r', 's')
+            case '8' => List('t' ,'u', 'v')
+            case '9' => List('w', 'x', 'y', 'z')
+        }
+
+        def comb(digits: List[Char]): Seq[String] = digits match {
+            case Nil => Seq("")
+            case d :: ds =>
+                val cs = comb(ds)
+                for {
+                    hd <- letters(d)
+                    tl <- cs
+                } yield hd +: tl
+        }
+        if (digits.isEmpty) Nil
+        else comb(digits.toList).toList
+    }
 }
