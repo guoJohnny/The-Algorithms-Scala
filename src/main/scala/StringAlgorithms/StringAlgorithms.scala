@@ -209,4 +209,33 @@ object StringAlgorithms {
         if (digits.isEmpty) Nil
         else comb(digits.toList).toList
     }
+
+    /**
+     * Leetcode 28
+     * Implement strStr().
+     * Return the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack.
+     * Using KMP
+     * @param haystack
+     * @param needle
+     * return Int
+     */
+    def strStr(haystack: String, needle: String): Int = {
+        if (needle.isEmpty) return 0
+        if (haystack.isEmpty()) return -1
+        var (i, j) = (0, -1)
+        val kmp = new Array[Int](needle.length() + 1)
+        kmp(i) = j
+        while (i < needle.length()) {
+            while (j >= 0 && needle(i) != needle(j)) j = kmp(j)
+            i += 1; j += 1
+            kmp(i) = j
+        }
+        j = 0; i = 0
+        while (j < haystack.length()) {
+            while (i >=0 && needle(i) != haystack(j)) i = kmp(i)
+            i += 1; j += 1
+            if (i == needle.length()) return j - needle.length()
+        }
+        return -1
+    }
 }

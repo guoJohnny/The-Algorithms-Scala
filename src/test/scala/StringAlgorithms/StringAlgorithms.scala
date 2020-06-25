@@ -29,4 +29,8 @@ class StringAlgorithmsSpec extends FlatSpec {
       assert(StringAlgorithms.letterCombinations("23").diff(list) === List())
       assert(StringAlgorithms.rcLetterCombinations("23").diff(list) === List())
     }
+
+    "Implement strStr()" should "return a int passed to it" in {  
+      assert(StringAlgorithms.strStr("hello", "ll") === 2) 
+    }
 }
