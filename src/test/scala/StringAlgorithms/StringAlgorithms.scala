@@ -33,4 +33,8 @@ class StringAlgorithmsSpec extends FlatSpec {
     "Implement strStr()" should "return a int passed to it" in {  
       assert(StringAlgorithms.strStr("hello", "ll") === 2) 
     }
+
+    "Multiply Strings" should "return a string passed to it" in {  
+      assert(StringAlgorithms.multiply("123", "456") === "56088") 
+    }
 }

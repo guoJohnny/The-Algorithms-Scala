@@ -223,19 +223,43 @@ object StringAlgorithms {
         if (needle.isEmpty) return 0
         if (haystack.isEmpty()) return -1
         var (i, j) = (0, -1)
-        val kmp = new Array[Int](needle.length() + 1)
-        kmp(i) = j
+        val next = new Array[Int](needle.length() + 1)
+        next(i) = j
         while (i < needle.length()) {
-            while (j >= 0 && needle(i) != needle(j)) j = kmp(j)
+            while (j >= 0 && needle(i) != needle(j)) j = next(j)
             i += 1; j += 1
-            kmp(i) = j
+            next(i) = j
         }
         j = 0; i = 0
         while (j < haystack.length()) {
-            while (i >=0 && needle(i) != haystack(j)) i = kmp(i)
+            while (i >=0 && needle(i) != haystack(j)) i = next(i)
             i += 1; j += 1
             if (i == needle.length()) return j - needle.length()
         }
         return -1
     }
+
+    /**
+     * Leetcode 44
+     * Given two non-negative integers num1 and num2 represented as strings, 
+     * return the product of num1 and num2, also represented as a string.
+     * 
+     */
+    def multiply(num1: String, num2: String): String = {
+        val (m ,n) = (num1.length, num2.length)
+        if (num1 == "0" || num2 == "0") return "0"
+        val res = new Array[Int](m + n)
+        for (i <- (0 to m - 1).reverse) {
+            for (j <- (0 to n - 1).reverse) {
+                val mul = (num1(i) - '0') * (num2(j) - '0')
+                val (p1, p2) = (i + j, i + j + 1)
+                val sum = mul + res(p2)
+                res(p2) = sum % 10
+                res(p1) += sum / 10
+            }
+        }
+        if (res(0) == 0) res.slice(1, res.length).mkString else res.mkString 
+    }
 }
+
+    
