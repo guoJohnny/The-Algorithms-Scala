@@ -66,8 +66,8 @@ object StringAlgorithms {
       * Leetcode 5
       * Given a string s, find the longest palindromic substring in s. 
       * You may assume that the maximum length of s is 1000.
-      * @param s
-      * @return
+      * @param s    - String
+      * @return String
       */
     def longestPalindromeCentralDiffusion(s: String): String = {
         def expandAroundCenter(s: String, left: Int, right: Int): Int = {
@@ -215,9 +215,9 @@ object StringAlgorithms {
      * Implement strStr().
      * Return the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack.
      * Using KMP
-     * @param haystack
-     * @param needle
-     * return Int
+     * @param haystack  - String
+     * @param needle    - String
+     * @return Int
      */
     def strStr(haystack: String, needle: String): Int = {
         if (needle.isEmpty) return 0
@@ -243,7 +243,9 @@ object StringAlgorithms {
      * Leetcode 44
      * Given two non-negative integers num1 and num2 represented as strings, 
      * return the product of num1 and num2, also represented as a string.
-     * 
+     * @param num1 - String
+     * @param num2  - String
+     * @return String
      */
     def multiply(num1: String, num2: String): String = {
         val (m ,n) = (num1.length, num2.length)
@@ -259,6 +261,28 @@ object StringAlgorithms {
             }
         }
         if (res(0) == 0) res.slice(1, res.length).mkString else res.mkString 
+    }
+
+    /**
+     * Leetcode 38
+     * @param n - Int
+     * @return String
+     * 
+     */
+    def countAndSay(n: Int): String = {
+        if (n == 1) return "1"
+        val res = new StringBuilder()
+        var (p, cur) = (0, 1)
+        val str = countAndSay(n - 1)
+        while (cur < str.length()) {
+            if (!str(p).equals(str(cur))) {
+                res.append(cur - p).append(str(p))
+                p = cur
+            }
+            cur += 1
+        }
+        res.append(cur - p).append(str(p))
+        return res.toString
     }
 }
 

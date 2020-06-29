@@ -37,4 +37,8 @@ class StringAlgorithmsSpec extends FlatSpec {
     "Multiply Strings" should "return a string passed to it" in {  
       assert(StringAlgorithms.multiply("123", "456") === "56088") 
     }
+
+    "CountAndSay" should "return a string passed to it" in {  
+      assert(StringAlgorithms.countAndSay(4) === "1211") 
+    }
 }
