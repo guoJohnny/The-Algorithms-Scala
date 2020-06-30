@@ -284,6 +284,19 @@ object StringAlgorithms {
         res.append(cur - p).append(str(p))
         return res.toString
     }
+
+    /**
+     * Leetcode 34 
+     * Given an array of integers nums sorted in ascending order, find the starting and ending position of a given target value.
+     * Your algorithm's runtime complexity must be in the order of O(log n).
+     * If the target is not found in the array, return [-1, -1].
+     * @nums - Array
+     * @target - Int
+     * @return - Array
+     */
+    def searchRange(nums: Array[Int], target: Int): Array[Int] = {
+        Array[Int](nums.indexOf(target), nums.lastIndexOf(target))
+    }
 }
 
     
