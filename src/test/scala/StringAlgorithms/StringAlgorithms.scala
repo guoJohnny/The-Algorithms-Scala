@@ -41,4 +41,8 @@ class StringAlgorithmsSpec extends FlatSpec {
     "CountAndSay" should "return a string passed to it" in {  
       assert(StringAlgorithms.countAndSay(4) === "1211") 
     }
+
+    "Length Of LastWord" should "return a Int passed to it" in {  
+      assert(StringAlgorithms.lengthOfLastWord("b a ") === 1) 
+    }
 }
