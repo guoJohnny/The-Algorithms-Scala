@@ -45,4 +45,21 @@ class StringAlgorithmsSpec extends FlatSpec {
     "Length Of LastWord" should "return a Int passed to it" in {  
       assert(StringAlgorithms.lengthOfLastWord("b a ") === 1) 
     }
+
+    "Valid Number" should "return a Boolean passed to it" in {  
+      assert(StringAlgorithms.isNumber("0") === true)
+      assert(StringAlgorithms.isNumber(" 0.1 ") === true)
+      assert(StringAlgorithms.isNumber("abc") === false)
+      assert(StringAlgorithms.isNumber("1 a") === false)
+      assert(StringAlgorithms.isNumber("2e10") === true)
+      assert(StringAlgorithms.isNumber(" -90e3    ") === true)
+      assert(StringAlgorithms.isNumber(" 1e") === false)
+      assert(StringAlgorithms.isNumber("e3") === false)
+      assert(StringAlgorithms.isNumber(" 99e2.5 ") === false)
+      assert(StringAlgorithms.isNumber(" --6 ") === false)
+      assert(StringAlgorithms.isNumber(" +-6 ") === false)
+      assert(StringAlgorithms.isNumber(" 95a54e53 ") === false)
+      
+    }
 }
+

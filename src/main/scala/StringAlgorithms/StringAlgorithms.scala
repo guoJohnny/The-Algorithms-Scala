@@ -317,6 +317,39 @@ object StringAlgorithms {
             }
         }      
     }
+    
+    /**
+     * Leetcode 65
+     * Validate if a given string can be interpreted as a decimal number.
+     * here is a list of characters that can be in a valid decimal number:
+     * Numbers 0-9
+     * Exponent - "e"
+     * Positive/negative sign - "+"/"-"
+     * Decimal point - "."
+     * @param s - String
+     * @return  -Boolean
+     */
+    def isNumber(s: String): Boolean = {
+        if (s.length() == 0 || Option(s) == None) return false
+        var (numSeen, dotSeen, eSeen) = (false, false, false)
+        val str = s.trim()
+        for (i <- 0 until str.length()) {
+            if(str(i) >= '0' && str(i) <= '9') {
+                numSeen = true
+            }else if (str(i) == '.') {
+                if (dotSeen || eSeen) return false
+                dotSeen = true
+            }else if (str(i) == 'E' || str(i) == 'e') {
+                if (eSeen || !numSeen) return false
+                eSeen = true ; numSeen = false
+            }else if (str(i) == '+' || str(i) == '-') {
+                if (i != 0 && str(i - 1) != 'e' && str(i - 1) != 'E') return false
+            } else {
+                return false
+            }
+        }
+        numSeen
+    }
 }
 
     
