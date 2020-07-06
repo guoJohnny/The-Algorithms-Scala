@@ -1,4 +1,5 @@
 package Tree
+import scala.Array
 import org.scalatest.FlatSpec
 
 class NodeSpec extends FlatSpec{

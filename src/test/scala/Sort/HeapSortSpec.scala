@@ -1,5 +1,5 @@
 package Sort
-
+import scala.Array
 import org.scalatest.FlatSpec
 
 class HeapSortSpec extends FlatSpec {

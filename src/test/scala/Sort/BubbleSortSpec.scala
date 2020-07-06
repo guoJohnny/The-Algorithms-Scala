@@ -1,5 +1,5 @@
 package Sort
-
+import scala.Array
 import org.scalatest.FlatSpec
 
 class BubbleSortSpec extends FlatSpec {

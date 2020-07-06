@@ -9,7 +9,7 @@ object LinearSieve {
     */
   def getPrimeNumbers(n: Int): Seq[Int] = {
     var primeNumbers = Seq.empty[Int]
-    val lowestPrimeDivisor: Array[Int] = Array.fill(n + 1)(0)
+    val lowestPrimeDivisor: Array[Int] = scala.Array.fill(n + 1)(0)
     for (i <- 2 to n) {
       if (lowestPrimeDivisor(i) == 0) {
         lowestPrimeDivisor(i) = i
