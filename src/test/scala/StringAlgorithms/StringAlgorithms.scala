@@ -59,7 +59,11 @@ class StringAlgorithmsSpec extends FlatSpec {
       assert(StringAlgorithms.isNumber(" --6 ") === false)
       assert(StringAlgorithms.isNumber(" +-6 ") === false)
       assert(StringAlgorithms.isNumber(" 95a54e53 ") === false)
-      
     }
+
+    "Add Binary" should "return a String passed to it" in {   
+      assert(StringAlgorithms.addBinary("11", "1") === "100")
+      assert(StringAlgorithms.addBinary("0", "0") === "0")
+    }    
 }
 

@@ -1,5 +1,7 @@
 package StringAlgorithms
 import scala.Array
+import java.math.BigInteger
+import scala.collection.mutable.BitSet
 
 object StringAlgorithms {
     /**
@@ -349,6 +351,38 @@ object StringAlgorithms {
             }
         }
         numSeen
+    }
+    /**
+      * Leetcode 67
+      *
+      * @param a
+      * @param b
+      * @return
+      */
+    def addBinary(a: String, b: String): String = {
+        var bitSet1 = new BitSet(a.length)
+        for (i <- 0 until a.length) {
+            if (a(a.length() - i -1) == '1') bitSet1 += i
+        }
+        val bitSet2 = new BitSet(b.length)
+        for (i <- 0 until b.length) {
+            if (b(b.length() - i -1) == '1') bitSet2 += i
+        }
+        while (!bitSet1.isEmpty) {
+            val temp2 = bitSet2.clone()
+            bitSet2 ^= bitSet1
+            bitSet1 &= temp2
+
+            val newA = new BitSet(bitSet1.size + 1)
+            bitSet1.toStream.foreach(i => newA += i + 1)
+            bitSet1 = newA
+        } 
+        if (bitSet2.isEmpty) return "0"
+        val ret = new StringBuffer()
+        for (i <- 0 to bitSet2.max) {
+            if (bitSet2(i)) ret.append('1') else ret.append('0')
+        }
+        return ret.reverse.toString()
     }
 }
 
